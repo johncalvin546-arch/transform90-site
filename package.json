@@ -1,0 +1,19 @@
+{
+  "name": "transform90-site",
+  "version": "1.0.0",
+  "description": "ELEVATE90 Elite Fitness Program & Weight Loss Malaysia",
+  "type": "module",
+  "scripts": {
+    "build": "esbuild analytics.js --bundle --format=iife --outfile=analytics.bundle.js",
+    "dev": "python -m http.server 8000 || python3 -m http.server 8000"
+  },
+  "keywords": ["fitness", "malaysia", "weight-loss"],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/speed-insights": "^1.0.12"
+  },
+  "devDependencies": {
+    "esbuild": "^0.20.0"
+  }
+}
