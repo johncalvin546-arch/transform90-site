@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Tracker | ELEVATE90</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .box-glow { box-shadow: 0 0 30px rgba(163, 230, 53, 0.1); }
+        .text-glow { text-shadow: 0 0 20px rgba(163, 230, 53, 0.5); }
+        .habit-card { transition: all 0.2s ease; cursor: pointer; }
+        .habit-card.active { background-color: #a3e635; color: #09090b; border-color: #84cc16; }
+        .habit-card.active .indicator { background-color: #09090b; border-color: #09090b; color: #a3e635; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <nav class="w-full z-50 glass-panel border-b border-white/5">
+        <div class="max-w-4xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="javascript:history.back()" class="text-sm font-bold text-zinc-400 hover:text-white">← Back to Dash</a>
+            <div class="text-lg font-heading font-bold text-white">Daily <span class="text-brand">Tracker</span></div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-4xl mx-auto w-full px-6 py-10 space-y-8 relative">
+        <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+
+        <div class="grid grid-cols-3 gap-4">
+            <div class="glass-panel p-5 rounded-2xl text-center box-glow">
+                <div class="text-xs font-bold text-zinc-500 uppercase mb-1">Daily Score</div>
+                <div class="text-3xl font-heading font-extrabold text-white" id="score-display">0%</div>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl text-center">
+                <div class="text-xs font-bold text-zinc-500 uppercase mb-1">Consistency</div>
+                <div class="text-3xl font-heading font-extrabold text-brand">100%</div>
+            </div>
+            <div class="glass-panel p-5 rounded-2xl text-center border-brand/30">
+                <div class="text-xs font-bold text-brand uppercase mb-1">Streak</div>
+                <div class="text-3xl font-heading font-extrabold text-white text-glow" id="streak-display">0</div>
+            </div>
+        </div>
+
+        <div class="glass-panel rounded-3xl p-6 md:p-8">
+            <h2 class="text-xl font-heading font-bold text-white mb-6">Today's Habits</h2>
+            <div class="space-y-3" id="habit-container">
+                </div>
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <div class="flex justify-between items-center">
+                    <span class="text-sm text-zinc-400 font-medium" id="feedback-text">Complete habits to update score.</span>
+                    <button onclick="saveAndReset()" class="text-xs font-bold bg-dark text-zinc-400 px-3 py-1.5 rounded hover:text-white transition-colors border border-white/10">Reset Day</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const habits = [
+            { id: 'water', icon: '💧', label: 'Drink 3L Water' },
+            { id: 'steps', icon: '👟', label: '10,000 Steps' },
+            { id: 'workout', icon: '🏋️', label: 'Program Execution' },
+            { id: 'protein', icon: '🥩', label: 'Hit Protein Target' }
+        ];
+
+        let state = JSON.parse(localStorage.getItem('elevateTrackerData')) || { habits: {}, score: 0, streak: 0 };
+        
+        const container = document.getElementById('habit-container');
+        const scoreDisplay = document.getElementById('score-display');
+        const streakDisplay = document.getElementById('streak-display');
+        const feedbackText = document.getElementById('feedback-text');
+
+        function render() {
+            container.innerHTML = '';
+            let completed = 0;
+
+            habits.forEach(h => {
+                const isActive = state.habits[h.id] || false;
+                if(isActive) completed++;
+
+                const btn = document.createElement('div');
+                btn.className = `habit-card bg-panel border border-white/5 p-5 rounded-xl font-bold text-white flex justify-between items-center ${isActive ? 'active' : ''}`;
+                btn.innerHTML = `
+                    <span class="flex items-center gap-3"><span class="text-xl">${h.icon}</span> ${h.label}</span>
+                    <div class="indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs font-black">${isActive ? '✓' : ''}</div>
+                `;
+                btn.onclick = () => toggleHabit(h.id);
+                container.appendChild(btn);
+            });
+
+            state.score = Math.round((completed / habits.length) * 100);
+            scoreDisplay.innerText = state.score + '%';
+            streakDisplay.innerText = state.streak;
+
+            if(state.score === 100) feedbackText.innerHTML = '<span class="text-brand">Perfect day! Elite execution.</span>';
+            else if(state.score >= 50) feedbackText.innerText = 'Good momentum, finish strong.';
+            else feedbackText.innerText = 'Start checking off habits to build momentum.';
+            
+            localStorage.setItem('elevateTrackerData', JSON.stringify(state));
+        }
+
+        function toggleHabit(id) {
+            state.habits[id] = !state.habits[id];
+            render();
+        }
+
+        function saveAndReset() {
+            if(state.score === 100) state.streak++;
+            else state.streak = 0;
+            state.habits = {};
+            state.score = 0;
+            render();
+        }
+
+        render();
+    </script>
+</body>
+</html>
