@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Dashboard | Elevate90</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] }, colors: { brand: { 400: '#a3e635', 500: '#84cc16' }, dark: { 950: '#09090b', 900: '#18181b', 800: '#27272a' } } } } }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        .font-heading { font-family: 'Manrope', sans-serif; }
+        .glass-panel { background: linear-gradient(145deg, rgba(39, 39, 42, 0.4) 0%, rgba(24, 24, 27, 0.8) 100%); backdrop-filter: blur(20px); border: 1px solid rgba(163, 230, 53, 0.15); }
+        .box-glow-strong { box-shadow: 0 0 50px rgba(163, 230, 53, 0.15); }
+        .text-glow { text-shadow: 0 0 20px rgba(163, 230, 53, 0.4); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-400 selection:text-black min-h-screen flex flex-col relative overflow-x-hidden">
+    
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-500/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+    <nav class="sticky top-0 w-full z-50 glass-panel border-b border-brand-400/20 shadow-lg">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div class="text-xl font-heading font-extrabold tracking-tight text-white flex items-center gap-1">
+                    ELEVATE<span class="text-brand-400 text-glow">90</span>
+                </div>
+                <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
+                <div class="hidden sm:flex items-center gap-1.5 text-xs font-extrabold bg-brand-400 text-black px-3 py-1.5 rounded-md uppercase tracking-wider shadow-[0_0_10px_rgba(163,230,53,0.3)]">
+                    Pro Active
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span>
+                    <span class="text-xs font-bold text-white uppercase tracking-widest hidden sm:block text-glow">System Active</span>
+                </div>
+                <button class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-12">
+        
+        <section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+            <div>
+                <h1 class="text-3xl md:text-5xl font-heading font-extrabold text-white mb-2 tracking-tight">Welcome back, Pro.</h1>
+                <p class="text-brand-400 font-bold text-sm md:text-base uppercase tracking-widest text-glow">Your daily execution toolkit is ready.</p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+                <a href="[PRO_PROGRAM_LINK]" class="text-center flex items-center justify-center gap-2 bg-brand-400 hover:bg-brand-500 text-black px-6 py-3.5 rounded-xl font-extrabold transition-all shadow-[0_0_20px_rgba(163,230,53,0.3)] hover:scale-105">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Start Workout
+                </a>
+                <a href="[PRO_MEAL_LINK]" class="text-center flex items-center justify-center gap-2 bg-dark-800 hover:bg-dark-700 border border-brand-400/30 text-white px-6 py-3.5 rounded-xl font-bold transition-all">
+                    Meal Guide
+                </a>
+            </div>
+        </section>
+
+        <section class="glass-panel rounded-[2rem] p-6 md:p-8 box-glow-strong border-t border-brand-400/30">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-xl font-heading font-bold text-white flex items-center gap-2"><svg class="w-5 h-5 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"></path></svg> Dashboard</h2>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs font-bold text-zinc-400 uppercase">Streak:</span>
+                    <span class="text-brand-400 font-extrabold flex items-center gap-1"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg> 3 Days</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-dark-900/80 rounded-xl p-4 border border-white/5">
+                    <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Weekly Score</div>
+                    <div class="text-3xl font-heading font-extrabold text-white">0<span class="text-brand-400 text-xl">/7</span></div>
+                </div>
+                <div class="bg-dark-900/80 rounded-xl p-4 border border-white/5">
+                    <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Consistency</div>
+                    <div class="text-3xl font-heading font-extrabold text-white">100<span class="text-brand-400 text-xl">%</span></div>
+                </div>
+                <div class="col-span-2 bg-brand-400/10 rounded-xl p-4 border border-brand-400/20 flex flex-col justify-center relative overflow-hidden">
+                    <div class="absolute right-0 top-0 h-full w-1 bg-brand-400"></div>
+                    <div class="text-brand-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1">Coach Feedback</div>
+                    <div class="text-sm font-medium text-white">Great momentum this week. Focus on controlling the eccentric phase today.</div>
+                </div>
+            </div>
+
+            <h3 class="text-sm font-bold text-white mb-3 uppercase tracking-widest">Today's Habits</h3>
+            <div class="grid md:grid-cols-3 gap-4">
+                <button id="habit-water" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left group">
+                    <span class="flex items-center gap-3"><span class="text-xl">💧</span> Drink 3L Water</span>
+                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs group-hover:border-zinc-400 transition-colors"></div>
+                </button>
+                <button id="habit-steps" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left group">
+                    <span class="flex items-center gap-3"><span class="text-xl">👟</span> 10k Steps</span>
+                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs group-hover:border-zinc-400 transition-colors"></div>
+                </button>
+                <button id="habit-workout" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left group">
+                    <span class="flex items-center gap-3"><span class="text-xl">🏋️</span> Execution</span>
+                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs group-hover:border-zinc-400 transition-colors"></div>
+                </button>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-heading font-extrabold text-white mb-6 tracking-tight">Pro Arsenal</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                
+                <a href="[PRO_PROGRAM_LINK]" class="group bg-dark-900 border border-brand-400/30 p-6 rounded-2xl hover:bg-dark-800 hover:border-brand-400 transition-all flex flex-col h-full shadow-[0_0_15px_rgba(163,230,53,0.1)]">
+                    <div class="w-12 h-12 bg-brand-400 text-black rounded-xl flex items-center justify-center mb-4 shadow-[0_0_15px_rgba(163,230,53,0.4)]">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Workout Program</h3>
+                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Your primary 90-day blueprint.</p>
+                    <span class="text-brand-400 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Launch <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                </a>
+
+                <a href="[PRO_MEAL_LINK]" class="group bg-dark-900 border border-white/10 p-6 rounded-2xl hover:bg-dark-800 hover:border-white/20 transition-all flex flex-col h-full">
+                    <div class="w-12 h-12 bg-white/5 text-white rounded-xl flex items-center justify-center mb-4 border border-white/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Malaysian Meal Guide</h3>
+                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Nutrition protocols and local food swaps.</p>
+                    <span class="text-white text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">View Guide <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                </a>
+
+                <a href="[PRO_EXERCISE_LINK]" class="group bg-dark-900 border border-white/10 p-6 rounded-2xl hover:bg-dark-800 hover:border-white/20 transition-all flex flex-col h-full">
+                    <div class="w-12 h-12 bg-white/5 text-white rounded-xl flex items-center justify-center mb-4 border border-white/10">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Exercise Library</h3>
+                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Video form database for all movements.</p>
+                    <span class="text-white text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Watch <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                </a>
+
+                <a href="[PRO_TRACKER_LINK]" class="group bg-dark-900 border border-white/10 p-6 rounded-2xl hover:bg-dark-800 hover:border-white/20 transition-all flex flex-col h-full">
+                    <h3 class="text-lg font-bold text-white mb-2">Progress Tracker</h3>
+                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Log your sets, reps, and measurements.</p>
+                    <span class="text-zinc-300 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Open Tracker <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                </a>
+
+                <a href="[PRO_DRIVE_LINK]" class="group bg-dark-900 border border-white/10 p-6 rounded-2xl hover:bg-dark-800 hover:border-white/20 transition-all flex flex-col h-full">
+                    <h3 class="text-lg font-bold text-white mb-2">Download Center</h3>
+                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Offline PDFs and resources.</p>
+                    <span class="text-zinc-300 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const habits = ['habit-water', 'habit-steps', 'habit-workout'];
+            habits.forEach(id => {
+                const btn = document.getElementById(id);
+                if(!btn) return;
+                const indicator = btn.querySelector('.status-indicator');
+                
+                if (localStorage.getItem(id) === 'done') {
+                    btn.classList.replace('bg-dark-800', 'bg-brand-400');
+                    btn.classList.replace('text-white', 'text-black');
+                    btn.classList.remove('hover:bg-dark-700', 'border-white/5');
+                    btn.classList.add('border-brand-500');
+                    indicator.classList.replace('border-zinc-600', 'border-black');
+                    indicator.classList.add('bg-black', 'text-brand-400');
+                    indicator.innerHTML = '✓';
+                }
+
+                btn.addEventListener('click', () => {
+                    if (localStorage.getItem(id) === 'done') {
+                        localStorage.removeItem(id);
+                        btn.classList.replace('bg-brand-400', 'bg-dark-800');
+                        btn.classList.replace('text-black', 'text-white');
+                        btn.classList.add('hover:bg-dark-700', 'border-white/5');
+                        btn.classList.remove('border-brand-500');
+                        indicator.classList.replace('border-black', 'border-zinc-600');
+                        indicator.classList.remove('bg-black', 'text-brand-400');
+                        indicator.innerHTML = '';
+                    } else {
+                        localStorage.setItem(id, 'done');
+                        btn.classList.replace('bg-dark-800', 'bg-brand-400');
+                        btn.classList.replace('text-white', 'text-black');
+                        btn.classList.remove('hover:bg-dark-700', 'border-white/5');
+                        btn.classList.add('border-brand-500');
+                        indicator.classList.replace('border-zinc-600', 'border-black');
+                        indicator.classList.add('bg-black', 'text-brand-400');
+                        indicator.innerHTML = '✓';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
