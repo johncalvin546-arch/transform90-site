@@ -1,96 +1,818 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Dashboard | ELEVATE90</title>
+    
+    <title>ELEVATE90 | Elite Fitness Program & Weight Loss Malaysia</title>
+    <meta name="description" content="The ultimate 90-day fitness program in Malaysia. Lose belly fat, build muscle, and eat local food without the cost of expensive personal training.">
+    <meta name="keywords" content="fitness program Malaysia, weight loss Malaysia, gym beginner Malaysia, home workout Malaysia, lose belly fat, personal training alternative">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Manrope', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            400: '#a3e635', // lime-400
+                            500: '#84cc16', // lime-500
+                        },
+                        dark: {
+                            950: '#09090b',
+                            900: '#18181b',
+                            800: '#27272a',
+                        }
+                    }
+                }
+            }
+        }
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
-        .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .box-glow { box-shadow: 0 0 30px rgba(163, 230, 53, 0.05); }
+        h1, h2, h3, h4, h5, h6, .font-heading { font-family: 'Manrope', sans-serif; }
+        
+        /* Glass & Glow Effects */
+        .glass-card { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .glass-panel { background: linear-gradient(145deg, rgba(39, 39, 42, 0.4) 0%, rgba(24, 24, 27, 0.8) 100%); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .text-glow { text-shadow: 0 0 24px rgba(163, 230, 53, 0.4); }
+        .box-glow { box-shadow: 0 0 40px rgba(163, 230, 53, 0.15); }
+        .box-glow-strong { box-shadow: 0 0 60px rgba(163, 230, 53, 0.25); }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        /* FAQ Accordion */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative">
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<body class="antialiased selection:bg-brand-400 selection:text-black relative overflow-x-hidden">
 
-    <nav class="sticky top-0 w-full z-50 glass-panel border-b border-white/5">
+    <div class="fixed top-[-10%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-brand-500/10 blur-[150px] rounded-full pointer-events-none z-0"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-brand-500/5 blur-[150px] rounded-full pointer-events-none z-0"></div>
+
+    <nav class="fixed w-full z-50 transition-all duration-300 border-b border-white/5 bg-dark-950/80 backdrop-blur-xl" id="navbar">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="text-xl font-heading font-extrabold text-white">ELEVATE<span class="text-brand">90</span></div>
-                <div class="h-6 w-px bg-white/10"></div>
-                <div class="text-xs font-bold bg-white/5 text-zinc-300 px-3 py-1.5 rounded-md uppercase border border-white/5">Basic</div>
+            <div class="text-2xl font-heading font-extrabold tracking-tight text-white flex items-center gap-1 cursor-pointer" onclick="window.scrollTo(0,0)">
+                ELEVATE<span class="text-brand-400">90</span>
+                <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse ml-1"></span>
             </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span><span class="text-xs font-bold text-zinc-400 uppercase tracking-widest hidden sm:block">System Active</span></div>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#how-it-works" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">The System</a>
+                <a href="#tracker" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Dashboard</a>
+                <a href="#programs" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Programs</a>
+                <a href="#testimonials" class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Results</a>
+                <a href="#pricing" class="bg-brand-400 hover:bg-brand-500 text-black px-7 py-2.5 rounded-full text-sm font-bold transition-all hover:scale-105 shadow-[0_0_15px_rgba(163,230,53,0.2)]">
+                    Get Access
+                </a>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-10">
-        <section class="flex flex-col md:flex-row justify-between md:items-center gap-6">
+    <section class="relative pt-36 pb-24 lg:pt-48 lg:pb-32 px-6 z-10 flex flex-col items-center justify-center min-h-[90vh]">
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card border border-brand-400/20 mb-8 transform hover:scale-105 transition-transform cursor-default">
+                <span class="relative flex h-2 w-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
+                </span>
+                <span class="text-xs font-semibold uppercase tracking-widest text-brand-400">The 2026 Malaysia Edition</span>
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-heading font-extrabold text-white leading-[1.05] tracking-tight mb-8">
+                Stop Renting Your <br class="hidden md:block"/> Dream Body. <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-brand-500 to-emerald-400 text-glow inline-block mt-2">The Ultimate Fitness Program.</span>
+            </h1>
+            
+            <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed mb-10">
+                The exact 90-day blueprint built for busy adults to <strong>lose belly fat, build lean muscle, and enjoy local food</strong>—without paying RM1,500/month for expensive personal training in Malaysia.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-5">
+                <a href="#pricing" class="w-full sm:w-auto bg-brand-400 hover:bg-brand-500 text-black px-10 py-5 rounded-full text-lg font-extrabold shadow-[0_0_30px_rgba(163,230,53,0.3)] hover:shadow-[0_0_50px_rgba(163,230,53,0.5)] transition-all hover:scale-105 flex items-center justify-center gap-3">
+                    Start Your Transformation
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                </a>
+            </div>
+            
+            <div class="mt-12 flex flex-wrap justify-center items-center gap-x-8 gap-y-4 text-sm text-zinc-500 font-medium">
+                <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Instant Digital Access</span>
+                <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> Beginner Friendly</span>
+                <span class="flex items-center gap-2"><svg class="w-4 h-4 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg> One-Time Payment</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="border-y border-white/5 bg-dark-900/40 backdrop-blur-sm py-10 z-10 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-20 text-center">
+                <div>
+                    <div class="text-4xl font-heading font-extrabold text-white mb-1 tracking-tight">100+</div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold">Transformations</div>
+                </div>
+                <div class="hidden md:block w-px h-16 bg-white/10"></div>
+                <div class="max-w-sm">
+                    <p class="text-sm md:text-base text-zinc-300 font-medium leading-relaxed">
+                        <span class="text-brand-400">Built from real gym-floor experience</span> helping busy Malaysians finally get results — without expensive personal training.
+                    </p>
+                </div>
+                <div class="hidden md:block w-px h-16 bg-white/10"></div>
+                <div>
+                    <div class="text-3xl font-heading font-extrabold text-white mb-1 flex items-center justify-center gap-2 tracking-tight">
+                        <svg class="w-7 h-7 text-brand-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        14-Day
+                    </div>
+                    <div class="text-xs text-zinc-500 uppercase tracking-widest font-bold">Kickstart Protocol</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 md:mb-24">
+                <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 text-white tracking-tight">Why Most Weight Loss Plans in Malaysia Fail.</h2>
+                <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">You're putting in the effort, paying for the gym membership, but fighting a losing battle against the Malaysian lifestyle.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden group hover:border-brand-400/30 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-red-500/10 rounded-full blur-3xl group-hover:bg-red-500/20 transition-colors"></div>
+                    <div class="w-14 h-14 bg-dark-800 rounded-2xl flex items-center justify-center text-red-400 mb-8 border border-white/5 group-hover:border-red-400/30 transition-colors">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight">The 9-to-6 Grind</h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium">Stuck in Klang Valley traffic, exhausted by 7 PM. You simply don't have 2 hours to spend in the gym guessing which machines to use.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden group hover:border-brand-400/30 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl group-hover:bg-orange-500/20 transition-colors"></div>
+                    <div class="w-14 h-14 bg-dark-800 rounded-2xl flex items-center justify-center text-orange-400 mb-8 border border-white/5 group-hover:border-orange-400/30 transition-colors">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight">The Food Trap</h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium">Dieting in Malaysia feels impossible. You try to eat clean, but Nasi Lemak, Economy Rice, and late-night Mamak sessions pull you off track.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-3xl relative overflow-hidden group hover:border-brand-400/30 transition-all duration-300 hover:-translate-y-1">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl group-hover:bg-purple-500/20 transition-colors"></div>
+                    <div class="w-14 h-14 bg-dark-800 rounded-2xl flex items-center justify-center text-purple-400 mb-8 border border-white/5 group-hover:border-purple-400/30 transition-colors">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight">Winging It</h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium">You enter the gym, feel intimidated by the free weights, hop on the treadmill, do random curls, and leave. No structure. No progression.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-24 md:py-32 px-6 relative z-10 bg-dark-900 border-y border-white/5">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
-                <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-white tracking-tight">Welcome back.</h1>
-                <p class="text-zinc-400 font-medium mt-1">Stay consistent. Execute the daily plan.</p>
-            </div>
-            <div class="flex gap-3">
-                <a href="[BASIC_PROGRAM_LINK]" class="bg-brand hover:bg-[#84cc16] text-black px-6 py-3 rounded-xl font-bold transition-all">Start Workout</a>
-                <a href="tracker.html" class="bg-panel border border-white/10 hover:border-brand/30 text-white px-6 py-3 rounded-xl font-bold transition-all">Open Tracker</a>
-            </div>
-        </section>
+                <div class="inline-block px-3 py-1 bg-brand-400/10 text-brand-400 border border-brand-400/20 rounded-full text-xs font-bold uppercase tracking-widest mb-6">The Solution</div>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-8 text-white leading-[1.1] tracking-tight">
+                    Enter Elevate90: The Proven 90-Day Transformation.
+                </h2>
+                <p class="text-lg text-zinc-400 mb-12 leading-relaxed">
+                    You don't need a RM150/session trainer hovering over you. You need absolute clarity. Elevate90 gives you the exact blueprint to follow—designed for efficiency, zero time waste, and maximum physical change.
+                </p>
+                
+                <div class="space-y-10 relative before:absolute before:inset-0 before:ml-6 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-brand-400/50 before:via-white/10 before:to-transparent">
+                    
+                    <div class="relative flex items-start gap-6">
+                        <div class="w-12 h-12 rounded-full bg-dark-950 border border-brand-400 flex items-center justify-center text-brand-400 font-bold font-heading z-10 shrink-0 box-glow text-lg">1</div>
+                        <div class="pt-1">
+                            <h4 class="text-xl font-bold text-white mb-2">Choose Your Arsenal</h4>
+                            <p class="text-zinc-400 leading-relaxed">Select your goal: Drop belly fat, pack on lean muscle, or transform from your living room with zero equipment.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="relative flex items-start gap-6">
+                        <div class="w-12 h-12 rounded-full bg-dark-950 border border-white/20 flex items-center justify-center text-white font-bold font-heading z-10 shrink-0 text-lg">2</div>
+                        <div class="pt-1">
+                            <h4 class="text-xl font-bold text-white mb-2">Hack The Malaysian Diet</h4>
+                            <p class="text-zinc-400 leading-relaxed">Use our exclusive local meal guide. Learn exactly how to order at the Mamak and Chap Fan stalls to achieve sustainable <strong>weight loss in Malaysia</strong> without starving.</p>
+                        </div>
+                    </div>
 
-        <section class="glass-panel rounded-3xl p-6 box-glow">
-            <h2 class="text-xl font-heading font-bold text-white mb-6">Execution Overview</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Score</div>
-                    <div class="text-2xl font-heading font-bold text-white" id="dash-score">0%</div>
-                </div>
-                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Consistency</div>
-                    <div class="text-2xl font-heading font-bold text-brand">100%</div>
-                </div>
-                <div class="col-span-2 bg-dark/30 rounded-xl p-4 border border-white/5 flex flex-col justify-center">
-                    <div class="text-zinc-400 text-xs font-bold uppercase mb-1">Coach Feedback</div>
-                    <div class="text-sm font-medium text-white">Log your daily metrics in the tracker to build momentum.</div>
+                    <div class="relative flex items-start gap-6">
+                        <div class="w-12 h-12 rounded-full bg-dark-950 border border-white/20 flex items-center justify-center text-white font-bold font-heading z-10 shrink-0 text-lg">3</div>
+                        <div class="pt-1">
+                            <h4 class="text-xl font-bold text-white mb-2">Execute & Track</h4>
+                            <p class="text-zinc-400 leading-relaxed">Step into the gym with absolute confidence. Open your phone, check the step-by-step form guides, log your sets, and get out in 45 minutes.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+            
+            <div class="relative">
+                <div class="absolute inset-0 bg-brand-500/20 blur-3xl rounded-full"></div>
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2070&auto=format&fit=crop" alt="Malaysian man doing gym workout for Elevate90 fitness program" class="relative rounded-3xl border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 object-cover h-[500px] lg:h-[650px] w-full">
+                <div class="absolute -bottom-6 -left-6 glass-card p-5 rounded-2xl flex items-center gap-4 animate-[bounce_4s_infinite]">
+                    <div class="w-14 h-14 bg-brand-400 rounded-full flex items-center justify-center text-black">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <div>
+                        <div class="text-white font-bold tracking-wide">Workout Logged</div>
+                        <div class="text-brand-400 text-sm font-medium">45 Mins • 400 kcal</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <section>
-            <h2 class="text-xl font-heading font-bold text-white mb-6">Content Hub</h2>
-            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="[BASIC_PROGRAM_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-l-2 border-brand flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Program</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Your 90-day blueprint.</p>
-                    <span class="text-brand text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
-                </a>
-                <a href="tracker.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Tracker</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Daily execution logic.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
-                </a>
-                <a href="progress.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Progress</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Weekly check-in data.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
-                </a>
-                <a href="[BASIC_DRIVE_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Downloads</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Offline resources.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Download ↓</span>
-                </a>
+    <section id="tracker" class="py-24 md:py-32 px-6 relative z-10">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <div class="inline-block px-3 py-1 bg-brand-400/10 text-brand-400 border border-brand-400/20 rounded-full text-xs font-bold uppercase tracking-widest mb-6">Inside The App</div>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-4 text-white tracking-tight">Your Daily Execution Dashboard.</h2>
+                <p class="text-lg text-zinc-400 max-w-2xl mx-auto">No spreadsheets. Just a clean, premium dashboard to track your daily wins and keep you accountable.</p>
             </div>
-        </section>
-    </main>
+
+            <div class="max-w-4xl mx-auto glass-panel rounded-[2rem] p-6 md:p-10 box-glow border border-brand-400/20 relative overflow-hidden">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-dark-950/50 rounded-xl p-4 border border-white/5">
+                        <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Weekly Score</div>
+                        <div class="text-2xl font-heading font-extrabold text-white">85<span class="text-brand-400 text-lg">%</span></div>
+                    </div>
+                    <div class="bg-dark-950/50 rounded-xl p-4 border border-white/5">
+                        <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Consistency</div>
+                        <div class="text-2xl font-heading font-extrabold text-white">92<span class="text-brand-400 text-lg">%</span></div>
+                    </div>
+                    <div class="col-span-2 bg-brand-400/10 rounded-xl p-4 border border-brand-400/20 flex flex-col justify-center">
+                        <div class="text-brand-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> Coach Feedback</div>
+                        <div class="text-sm font-medium text-white">Great job hitting protein goals yesterday! Let's crush today's leg session.</div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-lg font-bold text-white mb-4">Today's Habits <span class="text-sm font-normal text-zinc-500 ml-2">(Click to test)</span></h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <button id="habit-water" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
+                            <span class="flex items-center gap-3"><span class="text-xl">💧</span> Drink 3L Water</span>
+                            <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                        </button>
+                        <button id="habit-steps" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
+                            <span class="flex items-center gap-3"><span class="text-xl">👟</span> 10k Steps</span>
+                            <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                        </button>
+                        <button id="habit-workout" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
+                            <span class="flex items-center gap-3"><span class="text-xl">🏋️</span> Execution</span>
+                            <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <button class="md:col-span-2 bg-brand-400 hover:bg-brand-500 text-black px-6 py-4 rounded-xl font-extrabold transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(163,230,53,0.3)]">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Start Today's Workout
+                    </button>
+                    <button class="bg-dark-800 hover:bg-dark-700 border border-white/5 text-white px-6 py-4 rounded-xl font-bold transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                        Meal Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 relative z-10 bg-dark-900/50 border-t border-white/5">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-12 text-white tracking-tight">Who is ELEVATE90 For?</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="glass-panel p-8 rounded-2xl flex items-start gap-5 text-left border-t border-t-white/10 border-l-4 border-l-brand-400 hover:bg-dark-800 transition-colors">
+                    <svg class="w-8 h-8 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2 tracking-tight">Corporate Professionals</h4>
+                        <p class="text-zinc-400 leading-relaxed">You work long hours. You need high-ROI, structured workouts that take under an hour.</p>
+                    </div>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl flex items-start gap-5 text-left border-t border-t-white/10 border-l-4 border-l-brand-400 hover:bg-dark-800 transition-colors">
+                    <svg class="w-8 h-8 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div>
+                        <h4 class="text-xl font-bold text-white mb-2 tracking-tight">Frustrated Beginners</h4>
+                        <p class="text-zinc-400 leading-relaxed">You feel lost in the free-weights section and need clear, step-by-step guidance.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="programs" class="py-24 md:py-32 px-6 relative z-10 bg-dark-900 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <div class="inline-block px-3 py-1 bg-white/5 text-zinc-300 border border-white/10 rounded-full text-xs font-bold uppercase tracking-widest mb-6">The Arsenal</div>
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-6 text-white tracking-tight">Choose Your Fitness Program.</h2>
+                <p class="text-xl text-zinc-400 max-w-2xl mx-auto font-light">Every plan includes the 90-day protocol, the Malaysian Meal Guide, and full exercise database access.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <div class="glass-card rounded-3xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-brand-400/30">
+                    <div class="h-56 bg-dark-800 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Fat Loss Blueprint fitness program Malaysia" class="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700">
+                        <div class="absolute bottom-5 left-5 bg-brand-400 text-black text-xs font-extrabold px-3 py-1.5 rounded uppercase tracking-wider shadow-lg">Most Popular</div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-3">Fat Loss Blueprint</h3>
+                        <p class="text-zinc-400 text-sm mb-8 h-16 leading-relaxed">A structured gym + home plan focused on sustainable fat loss while maintaining muscle definition.</p>
+                        <ul class="space-y-4 mb-2">
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> 12-Week Progressive Structure</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Mamak & Chap Fan Swaps</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Cardio & Daily Step Targets</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-brand-400/30">
+                    <div class="h-56 bg-dark-800 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Lean Muscle System gym workout Malaysia" class="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-3">Lean Muscle System</h3>
+                        <p class="text-zinc-400 text-sm mb-8 h-16 leading-relaxed">A 4-5 day hypertrophy program designed to force muscle growth through strategic progressive overload.</p>
+                        <ul class="space-y-4 mb-2">
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Volume & Strength Blocks</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Progressive Overload Tracker</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Budget High-Protein Guide</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-3xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-white/5 hover:border-brand-400/30">
+                    <div class="h-56 bg-dark-800 relative overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2070&auto=format&fit=crop" alt="Home Transformation home workout Malaysia" class="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-3">Home Transformation</h3>
+                        <p class="text-zinc-400 text-sm mb-8 h-16 leading-relaxed">No gym? No problem. High-intensity 20-30 min circuits using minimal equipment right in your living room.</p>
+                        <ul class="space-y-4 mb-2">
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> 25-Min Daily Workouts</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Fat Burn Circuits</li>
+                            <li class="flex items-start text-sm text-zinc-300 font-medium"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> Minimal Equipment Needed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-24 md:py-32 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-heading font-extrabold mb-6 text-white tracking-tight">Choose Your Plan.</h2>
+                <div class="inline-flex items-center gap-2 bg-brand-400/10 text-brand-400 border border-brand-400/20 font-bold px-5 py-2.5 rounded-full text-sm animate-pulse">
+                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg>
+                    Limited Launch Pricing Active
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
+                <div class="glass-panel p-8 md:p-10 rounded-[2rem] flex flex-col h-full hover:border-white/20 transition-all">
+                    <h3 class="text-2xl font-bold text-zinc-400 mb-2">Basic</h3>
+                    <p class="text-sm text-zinc-500 mb-6 h-10">The essentials to get you started.</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-2xl font-bold text-zinc-500">RM</span>
+                        <span class="text-5xl md:text-6xl font-heading font-black text-white">59</span>
+                    </div>
+                    
+                    <ul class="space-y-5 mb-10 flex-grow border-t border-white/5 pt-8">
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-zinc-300 font-medium">Choose 1x 90-Day Program</span></li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-zinc-300 font-medium">Progress Tracker Sheets</span></li>
+                        <li class="flex items-start opacity-30"><svg class="w-5 h-5 text-zinc-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="text-zinc-400 line-through">Malaysian Meal Guide</span></li>
+                        <li class="flex items-start opacity-30"><svg class="w-5 h-5 text-zinc-500 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"></path></svg> <span class="text-zinc-400 line-through">Exercise Form Database</span></li>
+                    </ul>
+                    <a href="https://buy.stripe.com/6oUaEW7fp4pfd5N6DwfrW00" class="block text-center w-full py-4 rounded-xl font-bold text-base bg-white/5 hover:bg-white/10 text-white transition-all border border-white/10 mt-auto">
+                        Choose Basic
+                    </a>
+                </div>
+
+                <div class="relative bg-dark-900 p-8 md:p-12 rounded-[2rem] border border-brand-400 box-glow-strong lg:-mt-8 lg:mb-8 z-10 flex flex-col h-full transform lg:scale-105">
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-brand-400 text-black px-6 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-widest shadow-[0_0_20px_rgba(163,230,53,0.6)]">
+                        Most Popular
+                    </div>
+                    <h3 class="text-2xl font-bold text-brand-400 mb-2 mt-2 text-glow">Pro</h3>
+                    <p class="text-sm text-zinc-300 mb-6 h-10">Everything you need for a full transformation.</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-2xl font-bold text-brand-500">RM</span>
+                        <span class="text-6xl md:text-7xl font-heading font-black text-white text-glow">99</span>
+                    </div>
+                    
+                    <ul class="space-y-5 mb-10 flex-grow border-t border-brand-400/20 pt-8">
+                        <li class="flex items-start"><svg class="w-6 h-6 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-white font-semibold text-lg">Choose 1x 90-Day Program</span></li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-white font-semibold text-lg">Digital Dashboard Access</span></li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-white font-semibold text-lg">Malaysian Meal Guide</span></li>
+                        <li class="flex items-start"><svg class="w-6 h-6 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-white font-semibold text-lg">Exercise Form Database</span></li>
+                    </ul>
+                    <a href="https://buy.stripe.com/5kQbJ01V52h76Hp5zsfrW01" class="block text-center w-full py-5 rounded-xl font-extrabold text-lg bg-brand-400 hover:bg-brand-500 text-black transition-all shadow-[0_0_25px_rgba(163,230,53,0.4)] hover:shadow-[0_0_40px_rgba(163,230,53,0.6)] hover:-translate-y-1 mt-auto">
+                        Get The Pro Plan
+                    </a>
+                </div>
+
+                <div class="glass-panel p-8 md:p-10 rounded-[2rem] flex flex-col h-full hover:border-white/20 transition-all">
+                    <h3 class="text-2xl font-bold text-zinc-400 mb-2">Premium</h3>
+                    <p class="text-sm text-zinc-500 mb-6 h-10">The VIP bundle with priority accountability.</p>
+                    <div class="flex items-baseline gap-1 mb-8">
+                        <span class="text-2xl font-bold text-zinc-500">RM</span>
+                        <span class="text-5xl md:text-6xl font-heading font-black text-white">199</span>
+                    </div>
+                    
+                    <ul class="space-y-5 mb-10 flex-grow border-t border-white/5 pt-8">
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-zinc-300 font-medium">ALL 3x 90-Day Programs</span></li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-zinc-300 font-medium">Everything in Pro Tier</span></li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-brand-400 font-bold text-glow">Priority WhatsApp Support</span></li>
+                        <li class="flex items-start"><svg class="w-5 h-5 text-brand-400 mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg> <span class="text-brand-400 font-bold text-glow">2x Routine Form Audits</span></li>
+                    </ul>
+                    <a href="https://buy.stripe.com/4gM4gy2Z9dZP0j17HAfrW02" class="block text-center w-full py-4 rounded-xl font-bold text-base bg-white/5 hover:bg-white/10 text-white transition-all border border-white/10 mt-auto">
+                        Choose Premium
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="py-24 md:py-32 px-6 relative z-10 border-t border-white/5 bg-dark-950/50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-heading font-extrabold mb-4 text-white tracking-tight">They Stopped Guessing.</h2>
+                <p class="text-zinc-400 text-lg">Real Malaysians. Real results.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="glass-panel p-10 rounded-[2rem] relative">
+                    <svg class="absolute top-8 left-8 w-14 h-14 text-white/5" fill="currentColor" viewBox="0 0 32 32"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.896 3.456-8.352 9.12-8.352 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path></svg>
+                    <p class="relative z-10 text-zinc-300 italic mb-8 pt-4 text-lg leading-relaxed">"I used to just run on the treadmill and go home. This program gave me a plan. Dropped 4kg in my first month and I still eat at the mamak! The chap fan guide is a literal lifesaver."</p>
+                    <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Hafiz T.</h4>
+                            <span class="text-sm text-zinc-500">IT Executive, 28</span>
+                        </div>
+                        <span class="bg-brand-400/10 text-brand-400 border border-brand-400/20 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">-4kg in 30 Days</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-10 rounded-[2rem] relative">
+                    <svg class="absolute top-8 left-8 w-14 h-14 text-white/5" fill="currentColor" viewBox="0 0 32 32"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.896 3.456-8.352 9.12-8.352 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path></svg>
+                    <p class="relative z-10 text-zinc-300 italic mb-8 pt-4 text-lg leading-relaxed">"The exercise database is amazing. I no longer feel anxious in the free weights section. I go in, look at my plan, lift, and get out in 45 minutes. Highly recommend the Pro plan."</p>
+                    <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Sarah L.</h4>
+                            <span class="text-sm text-zinc-500">Accountant, 31</span>
+                        </div>
+                        <span class="bg-brand-400/10 text-brand-400 border border-brand-400/20 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Visible Muscle</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-10 rounded-[2rem] relative">
+                    <svg class="absolute top-8 left-8 w-14 h-14 text-white/5" fill="currentColor" viewBox="0 0 32 32"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.896 3.456-8.352 9.12-8.352 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path></svg>
+                    <p class="relative z-10 text-zinc-300 italic mb-8 pt-4 text-lg leading-relaxed">"I work crazy hours and basically survive on Chap Fan. The meal guide taught me how to estimate my portions without looking weird at the stall. Down 5kg and feeling stronger!"</p>
+                    <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Wei Lun C.</h4>
+                            <span class="text-sm text-zinc-500">Engineer, 34</span>
+                        </div>
+                        <span class="bg-brand-400/10 text-brand-400 border border-brand-400/20 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">-5kg in 2 Months</span>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-10 rounded-[2rem] relative">
+                    <svg class="absolute top-8 left-8 w-14 h-14 text-white/5" fill="currentColor" viewBox="0 0 32 32"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.896 3.456-8.352 9.12-8.352 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path></svg>
+                    <p class="relative z-10 text-zinc-300 italic mb-8 pt-4 text-lg leading-relaxed">"I recently relocated from KL down to Kluang to prove I could handle a tough new job, but my fitness took a huge hit. The home transformation plan was exactly what I needed to rebuild my discipline."</p>
+                    <div class="flex items-center justify-between border-t border-white/10 pt-6">
+                        <div>
+                            <h4 class="font-bold text-white text-lg">Priya M.</h4>
+                            <span class="text-sm text-zinc-500">Branch Manager, 31</span>
+                        </div>
+                        <span class="bg-brand-400/10 text-brand-400 border border-brand-400/20 text-xs font-bold px-3 py-1.5 rounded-full uppercase tracking-wider">Consistency Restored</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 relative z-10 border-t border-white/5">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-12 text-white text-center tracking-tight">Questions?</h2>
+            
+            <div class="space-y-4">
+                <details class="glass-panel rounded-2xl group cursor-pointer border border-white/5" open>
+                    <summary class="px-8 py-6 font-bold text-white text-lg flex justify-between items-center focus:outline-none">
+                        What is the best fitness program for beginners in Malaysia?
+                        <svg class="w-6 h-6 text-brand-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-8 pb-6 text-zinc-400 leading-relaxed border-t border-white/5 pt-4">
+                        Elevate90 is specifically designed for beginners and busy working adults. It comes with an 'Ultimate Beginner Gym Guide' and a comprehensive exercise database. You'll know exactly what to do, how to set up machines, and how to perform exercises safely without feeling intimidated in the gym.
+                    </div>
+                </details>
+                
+                <details class="glass-panel rounded-2xl group cursor-pointer border border-white/5">
+                    <summary class="px-8 py-6 font-bold text-white text-lg flex justify-between items-center focus:outline-none">
+                        I work late and stuck in traffic. Do I have time?
+                        <svg class="w-6 h-6 text-brand-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-8 pb-6 text-zinc-400 leading-relaxed border-t border-white/5 pt-4">
+                        Yes. The gym workouts are designed to be completed in 45-60 minutes, 3-4 times a week. If you're completely strapped for time, the Home Transformation plan takes just 25 minutes a day.
+                    </div>
+                </details>
+
+                <details class="glass-panel rounded-2xl group cursor-pointer border border-white/5">
+                    <summary class="px-8 py-6 font-bold text-white text-lg flex justify-between items-center focus:outline-none">
+                        Can I lose belly fat while eating Mamak and Economy Rice?
+                        <svg class="w-6 h-6 text-brand-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-8 pb-6 text-zinc-400 leading-relaxed border-t border-white/5 pt-4">
+                        Yes! That's why we included the Malaysian Meal Guide. We show you exactly how to make smart, calorie-conscious swaps at Mamak, Economy Rice (Chap Fan) stalls, and hawker centers so you can lose weight while still enjoying local food.
+                    </div>
+                </details>
+
+                <details class="glass-panel rounded-2xl group cursor-pointer border border-white/5">
+                    <summary class="px-8 py-6 font-bold text-white text-lg flex justify-between items-center focus:outline-none">
+                        How much does personal training cost in Malaysia vs Elevate90?
+                        <svg class="w-6 h-6 text-brand-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-8 pb-6 text-zinc-400 leading-relaxed border-t border-white/5 pt-4">
+                        A standard personal trainer in Malaysia costs between RM150 to RM250 per session (often over RM1,500 a month). Elevate90 gives you the exact same structured workout plans and progression tracking for a single, one-time payment starting at just RM59.
+                    </div>
+                </details>
+
+                <details class="glass-panel rounded-2xl group cursor-pointer border border-white/5">
+                    <summary class="px-8 py-6 font-bold text-white text-lg flex justify-between items-center focus:outline-none">
+                        Is this a monthly subscription?
+                        <svg class="w-6 h-6 text-brand-400 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="px-8 pb-6 text-zinc-400 leading-relaxed border-t border-white/5 pt-4">
+                        No. This is a one-time payment for lifetime access to the materials you purchase. Download them once, keep them forever.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 px-6 relative z-10 bg-dark-900/50 border-y border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <header class="text-center mb-16 md:mb-24">
+                <h2 class="text-3xl md:text-5xl font-heading font-extrabold mb-6 text-white tracking-tight">Fitness Guides for Malaysians</h2>
+                <p class="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">Simple guides to help you lose fat, build muscle, and stop guessing in the gym.</p>
+            </header>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <article class="glass-panel p-8 rounded-3xl relative overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:border-brand-400/40 hover:shadow-[0_0_40px_rgba(163,230,53,0.15)] flex flex-col h-full border border-white/5">
+                    <a href="/blog-why-malaysians-fail-weight-loss.html" class="absolute inset-0 z-20" aria-label="Read Why Most Malaysians Fail at Weight Loss"></a>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-colors pointer-events-none"></div>
+                    
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight group-hover:text-brand-400 transition-colors relative z-10">
+                        Why Most Malaysians Fail at Weight Loss
+                    </h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium mb-8 flex-grow relative z-10">
+                        Discover the hidden diet traps in our local food culture and how to beat them without giving up your favorite meals like Nasi Lemak or Chap Fan.
+                    </p>
+                    
+                    <div class="flex items-center text-brand-400 font-bold text-sm uppercase tracking-widest mt-auto relative z-10">
+                        Read Guide 
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </article>
+
+                <article class="glass-panel p-8 rounded-3xl relative overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:border-brand-400/40 hover:shadow-[0_0_40px_rgba(163,230,53,0.15)] flex flex-col h-full border border-white/5">
+                    <a href="/blog-gym-beginner-malaysia.html" class="absolute inset-0 z-20" aria-label="Read Gym Beginner Guide Malaysia"></a>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-colors pointer-events-none"></div>
+                    
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight group-hover:text-brand-400 transition-colors relative z-10">
+                        Gym Beginner Guide Malaysia
+                    </h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium mb-8 flex-grow relative z-10">
+                        A complete step-by-step blueprint to navigating the gym floor confidently, overcoming intimidation, and building a workout routine that actually gets results.
+                    </p>
+                    
+                    <div class="flex items-center text-brand-400 font-bold text-sm uppercase tracking-widest mt-auto relative z-10">
+                        Read Guide 
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </article>
+
+                <article class="glass-panel p-8 rounded-3xl relative overflow-hidden group transition-all duration-300 hover:-translate-y-2 hover:border-brand-400/40 hover:shadow-[0_0_40px_rgba(163,230,53,0.15)] flex flex-col h-full border border-white/5">
+                    <a href="/blog-lose-belly-fat-malaysia.html" class="absolute inset-0 z-20" aria-label="Read How to Lose Belly Fat in Malaysia"></a>
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-3xl group-hover:bg-brand-500/20 transition-colors pointer-events-none"></div>
+                    
+                    <h3 class="text-2xl font-heading font-bold text-white mb-4 tracking-tight group-hover:text-brand-400 transition-colors relative z-10">
+                        How to Lose Belly Fat in Malaysia
+                    </h3>
+                    <p class="text-zinc-400 leading-relaxed font-medium mb-8 flex-grow relative z-10">
+                        The science-backed approach to dropping stubborn belly fat, specifically tailored for the busy lifestyle and unique eating habits of working adults.
+                    </p>
+                    
+                    <div class="flex items-center text-brand-400 font-bold text-sm uppercase tracking-widest mt-auto relative z-10">
+                        Read Guide 
+                        <svg class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-32 px-6 relative z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-brand-500/10 blur-[120px] rounded-full z-0 pointer-events-none"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <h2 class="text-5xl md:text-7xl font-heading font-extrabold text-white mb-6 tracking-tight">Stop Wasting Your Potential.</h2>
+            <p class="text-xl text-zinc-300 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
+                You have the desire. Now get the blueprint. Join hundreds of Malaysians who finally stopped guessing and started transforming.
+            </p>
+            
+            <a href="https://buy.stripe.com/5kQbJ01V52h76Hp5zsfrW01" class="inline-flex items-center justify-center gap-3 bg-brand-400 hover:bg-brand-500 text-black px-12 py-5 rounded-full text-xl font-extrabold shadow-[0_0_30px_rgba(163,230,53,0.3)] hover:shadow-[0_0_50px_rgba(163,230,53,0.5)] transition-all hover:-translate-y-1">
+                Get The Pro Plan Now
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+            </a>
+            
+            <p class="mt-8 text-sm text-zinc-500 flex items-center justify-center gap-2 font-medium">
+                <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                Secure Checkout via Stripe • Instant Delivery
+            </p>
+        </div>
+    </section>
+
+    <section id="support-legal" class="py-24 px-6 relative z-10 bg-dark-900 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-heading font-extrabold text-white tracking-tight">Legal & Support</h2>
+                <p class="text-zinc-400 mt-4 text-lg">Everything you need to know about your data and how to reach us.</p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto items-start">
+                
+                <div class="space-y-10">
+                    <div class="glass-panel p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-4">Terms & Conditions</h3>
+                        <p class="text-zinc-400 leading-relaxed text-sm">
+                            By accessing and using the Elevate90 program, you agree to be bound by our terms of service. All fitness guides, nutrition protocols, and digital materials provided are protected by copyright and are strictly for personal, non-commercial use. They may not be distributed, resold, or shared. Results vary based on individual effort, genetics, and consistency. Elevate90 does not provide medical advice; please consult a physician before beginning any new fitness or diet regimen.
+                        </p>
+                    </div>
+                    
+                    <div class="glass-panel p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-2xl font-heading font-bold text-white mb-4">Privacy Policy</h3>
+                        <p class="text-zinc-400 leading-relaxed text-sm">
+                            Your privacy is our utmost priority. We only collect the necessary information required to process your payments and securely deliver your digital products (such as your name, email address, and billing details). We will never sell, rent, or trade your personal data to third-party marketing companies. All payment processing is securely handled via encrypted, industry-standard gateways (Stripe) to ensure your financial data remains completely protected and safe at all times.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 md:p-10 rounded-3xl border border-brand-400/20 box-glow">
+                    <h3 class="text-2xl font-heading font-bold text-white mb-2">Contact Support</h3>
+                    <p class="text-zinc-400 text-sm mb-8">Need help with your download or have a question? Submit the form below and our team will get back to you within 24 hours.</p>
+                    
+                    <form class="space-y-5" onsubmit="event.preventDefault(); alert('Request submitted! We will get back to you shortly.');">
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Full Name</label>
+                            <input type="text" required class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-400 transition-colors" placeholder="e.g. Ahmad Ali">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Email Address</label>
+                            <input type="email" required class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-400 transition-colors" placeholder="ahmad@example.com">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Contact Number</label>
+                            <input type="tel" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-400 transition-colors" placeholder="e.g. 012-345 6789">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Describe Your Issue</label>
+                            <textarea required rows="4" class="w-full bg-dark-950 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-400 transition-colors resize-none" placeholder="How can we help you today?"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-brand-400 hover:bg-brand-500 text-black font-extrabold py-4 rounded-xl transition-colors mt-4">
+                            Submit Request
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 bg-dark-950 py-16 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="text-2xl font-heading font-extrabold tracking-tight text-white mb-6 opacity-40 hover:opacity-100 transition-opacity">
+                ELEVATE<span class="text-brand-400">90</span>
+            </div>
+            <p class="text-sm text-zinc-600 mb-8">© 2026 Elevate90. Built for the modern Malaysian.</p>
+            <div class="flex justify-center space-x-8 text-sm font-medium">
+                <a href="#support-legal" class="text-zinc-500 hover:text-white transition-colors">Terms & Conditions</a>
+                <a href="#support-legal" class="text-zinc-500 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="#support-legal" class="text-zinc-500 hover:text-white transition-colors">Contact Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="mobile-cta" class="fixed bottom-0 left-0 w-full p-4 bg-dark-950/90 backdrop-blur-xl border-t border-white/10 z-50 md:hidden translate-y-full transition-transform duration-300">
+        <a href="https://buy.stripe.com/5kQbJ01V52h76Hp5zsfrW01" class="block w-full bg-brand-400 hover:bg-brand-500 text-black text-center py-4 rounded-xl font-extrabold text-lg shadow-[0_0_20px_rgba(163,230,53,0.3)] transition-colors">
+            Start Your Transformation
+        </a>
+    </div>
+
+    <div id="test-access-panel" class="fixed bottom-24 md:bottom-6 right-6 z-[100] flex flex-col items-end">
+        <div id="test-menu" class="hidden mb-3 glass-panel border border-brand-400/30 rounded-xl p-3 shadow-2xl flex flex-col gap-2 w-48">
+            <div class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-1 px-1">Test Success Pages</div>
+            <a href="success-basic.html" class="text-xs font-medium bg-dark-800 hover:bg-dark-700 text-white px-3 py-2 rounded border border-white/5 transition-colors text-center">Basic Success</a>
+            <a href="success-pro.html" class="text-xs font-medium bg-dark-800 hover:bg-dark-700 text-white px-3 py-2 rounded border border-white/5 transition-colors text-center">Pro Success</a>
+            <a href="success-premium.html" class="text-xs font-bold bg-brand-400/10 hover:bg-brand-400/20 text-brand-400 border border-brand-400/20 px-3 py-2 rounded transition-colors text-center">Premium Success</a>
+            
+            <div class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider mt-2 mb-1 px-1">Test Dashboards</div>
+            <a href="dashboard-basic.html" class="text-xs font-medium bg-dark-800 hover:bg-dark-700 text-white px-3 py-2 rounded border border-white/5 transition-colors text-center">Basic Dashboard</a>
+            <a href="dashboard-pro.html" class="text-xs font-medium bg-dark-800 hover:bg-dark-700 text-white px-3 py-2 rounded border border-white/5 transition-colors text-center">Pro Dashboard</a>
+            <a href="dashboard-premium.html" class="text-xs font-bold bg-brand-400/10 hover:bg-brand-400/20 text-brand-400 border border-brand-400/20 px-3 py-2 rounded transition-colors text-center">Premium Dashboard</a>
+        </div>
+        <button onclick="document.getElementById('test-menu').classList.toggle('hidden')" class="bg-brand-400 hover:bg-brand-500 text-black px-4 py-2.5 rounded-full font-bold shadow-[0_0_20px_rgba(163,230,53,0.4)] flex items-center gap-2 hover:scale-105 transition-all">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+            Test Pages
+        </button>
+    </div>
+
     <script>
-        // Simple preview logic
-        const savedData = JSON.parse(localStorage.getItem('elevateTrackerData')) || { score: 0 };
-        document.getElementById('dash-score').innerText = savedData.score + '%';
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileCta = document.getElementById('mobile-cta');
+            const navbar = document.getElementById('navbar');
+            
+            // Scroll Handlers
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 600) {
+                    mobileCta.classList.remove('translate-y-full');
+                } else {
+                    mobileCta.classList.add('translate-y-full');
+                }
+                
+                if (window.scrollY > 50) {
+                    navbar.classList.add('border-white/10');
+                    navbar.classList.remove('border-transparent');
+                } else {
+                    navbar.classList.remove('border-white/10');
+                    navbar.classList.add('border-transparent');
+                }
+            });
+
+            // FAQ Accordion
+            const details = document.querySelectorAll('details');
+            details.forEach(targetDetail => {
+                targetDetail.addEventListener('click', () => {
+                    details.forEach(detail => {
+                        if (detail !== targetDetail) {
+                            detail.removeAttribute('open');
+                        }
+                    });
+                });
+            });
+
+            // Tracker Logic (LocalStorage)
+            const habits = ['habit-water', 'habit-steps', 'habit-workout'];
+            habits.forEach(id => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                const indicator = btn.querySelector('.status-indicator');
+                
+                if (localStorage.getItem(id) === 'done') {
+                    btn.classList.replace('bg-dark-800', 'bg-brand-400');
+                    btn.classList.replace('text-white', 'text-black');
+                    btn.classList.remove('hover:bg-dark-700', 'border-white/5');
+                    btn.classList.add('border-brand-500');
+                    indicator.classList.replace('border-zinc-600', 'border-black');
+                    indicator.classList.add('bg-black', 'text-brand-400');
+                    indicator.innerHTML = '✓';
+                }
+
+                btn.addEventListener('click', () => {
+                    if (localStorage.getItem(id) === 'done') {
+                        localStorage.removeItem(id);
+                        btn.classList.replace('bg-brand-400', 'bg-dark-800');
+                        btn.classList.replace('text-black', 'text-white');
+                        btn.classList.add('hover:bg-dark-700', 'border-white/5');
+                        btn.classList.remove('border-brand-500');
+                        indicator.classList.replace('border-black', 'border-zinc-600');
+                        indicator.classList.remove('bg-black', 'text-brand-400');
+                        indicator.innerHTML = '';
+                    } else {
+                        localStorage.setItem(id, 'done');
+                        btn.classList.replace('bg-dark-800', 'bg-brand-400');
+                        btn.classList.replace('text-white', 'text-black');
+                        btn.classList.remove('hover:bg-dark-700', 'border-white/5');
+                        btn.classList.add('border-brand-500');
+                        indicator.classList.replace('border-zinc-600', 'border-black');
+                        indicator.classList.add('bg-black', 'text-brand-400');
+                        indicator.innerHTML = '✓';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
