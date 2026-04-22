@@ -3,177 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Elevate90 Basic</title>
+    <title>Basic Dashboard | ELEVATE90</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] },
-                    colors: { brand: { 400: '#a3e635', 500: '#84cc16' }, dark: { 950: '#09090b', 900: '#18181b', 800: '#27272a' } }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
-        .font-heading { font-family: 'Manrope', sans-serif; }
-        .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.05); }
-        .box-glow { box-shadow: 0 0 30px rgba(163, 230, 53, 0.1); }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
+        .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .box-glow { box-shadow: 0 0 30px rgba(163, 230, 53, 0.05); }
     </style>
 </head>
-<body class="antialiased selection:bg-brand-400 selection:text-black min-h-screen flex flex-col relative overflow-x-hidden">
-    
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand-500/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
+<body class="min-h-screen flex flex-col relative">
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
     <nav class="sticky top-0 w-full z-50 glass-panel border-b border-white/5">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-4">
-                <div class="text-xl font-heading font-extrabold tracking-tight text-white flex items-center gap-1">
-                    ELEVATE<span class="text-brand-400">90</span>
-                </div>
-                <div class="h-6 w-px bg-white/10 hidden sm:block"></div>
-                <div class="hidden sm:flex items-center gap-2 text-xs font-bold bg-white/5 text-zinc-300 px-3 py-1.5 rounded-md uppercase tracking-wider border border-white/5">
-                    Basic Tier
-                </div>
+                <div class="text-xl font-heading font-extrabold text-white">ELEVATE<span class="text-brand">90</span></div>
+                <div class="h-6 w-px bg-white/10"></div>
+                <div class="text-xs font-bold bg-white/5 text-zinc-300 px-3 py-1.5 rounded-md uppercase border border-white/5">Basic</div>
             </div>
-            <div class="flex items-center gap-6">
-                <div class="flex items-center gap-2">
-                    <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-500"></span></span>
-                    <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest hidden sm:block">System Active</span>
-                </div>
-                <button class="text-sm font-medium text-zinc-400 hover:text-white transition-colors">Logout</button>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span><span class="text-xs font-bold text-zinc-400 uppercase tracking-widest hidden sm:block">System Active</span></div>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-12">
-        
-        <section class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-10">
+        <section class="flex flex-col md:flex-row justify-between md:items-center gap-6">
             <div>
-                <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-white mb-2 tracking-tight">Welcome back.</h1>
-                <p class="text-zinc-400 font-medium text-sm md:text-base">Stay consistent. Execute the daily plan.</p>
+                <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-white tracking-tight">Welcome back.</h1>
+                <p class="text-zinc-400 font-medium mt-1">Stay consistent. Execute the daily plan.</p>
             </div>
-            <div class="flex gap-3 w-full md:w-auto">
-                <a href="[BASIC_PROGRAM_LINK]" class="flex-1 md:flex-none text-center bg-brand-400 hover:bg-brand-500 text-black px-6 py-3 rounded-xl font-extrabold transition-all shadow-[0_0_15px_rgba(163,230,53,0.2)]">Start Workout</a>
+            <div class="flex gap-3">
+                <a href="[BASIC_PROGRAM_LINK]" class="bg-brand hover:bg-[#84cc16] text-black px-6 py-3 rounded-xl font-bold transition-all">Start Workout</a>
+                <a href="tracker.html" class="bg-panel border border-white/10 hover:border-brand/30 text-white px-6 py-3 rounded-xl font-bold transition-all">Open Tracker</a>
             </div>
         </section>
 
-        <section class="glass-panel rounded-[2rem] p-6 md:p-8 box-glow">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-heading font-bold text-white">Daily Execution</h2>
-                <div class="text-xs font-bold uppercase tracking-wider text-brand-400 bg-brand-400/10 px-3 py-1 rounded-full">Week 1</div>
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-dark-900/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Score</div>
-                    <div class="text-2xl font-heading font-extrabold text-white">0<span class="text-zinc-500 text-lg">/3</span></div>
+        <section class="glass-panel rounded-3xl p-6 box-glow">
+            <h2 class="text-xl font-heading font-bold text-white mb-6">Execution Overview</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
+                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Score</div>
+                    <div class="text-2xl font-heading font-bold text-white" id="dash-score">0%</div>
                 </div>
-                <div class="bg-dark-900/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase tracking-wider mb-1">Consistency</div>
-                    <div class="text-2xl font-heading font-extrabold text-white">100<span class="text-brand-400 text-lg">%</span></div>
+                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
+                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Consistency</div>
+                    <div class="text-2xl font-heading font-bold text-brand">100%</div>
                 </div>
-                <div class="col-span-2 bg-dark-800/30 rounded-xl p-4 border border-white/5 flex flex-col justify-center">
-                    <div class="text-zinc-400 text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1">Auto-Feedback</div>
-                    <div class="text-sm font-medium text-white">Check off your habits below to start your streak.</div>
+                <div class="col-span-2 bg-dark/30 rounded-xl p-4 border border-white/5 flex flex-col justify-center">
+                    <div class="text-zinc-400 text-xs font-bold uppercase mb-1">Coach Feedback</div>
+                    <div class="text-sm font-medium text-white">Log your daily metrics in the tracker to build momentum.</div>
                 </div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-4">
-                <button id="habit-water" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
-                    <span class="flex items-center gap-3"><span class="text-xl">💧</span> Drink 3L Water</span>
-                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
-                </button>
-                <button id="habit-steps" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
-                    <span class="flex items-center gap-3"><span class="text-xl">👟</span> 10k Steps</span>
-                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
-                </button>
-                <button id="habit-workout" class="habit-btn flex items-center justify-between bg-dark-800 hover:bg-dark-700 border border-white/5 px-5 py-4 rounded-xl font-bold transition-all text-white w-full text-left">
-                    <span class="flex items-center gap-3"><span class="text-xl">🏋️</span> Daily Workout</span>
-                    <div class="status-indicator w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
-                </button>
             </div>
         </section>
 
         <section>
-            <h2 class="text-xl font-heading font-bold text-white mb-6">Your Arsenal</h2>
-            <div class="grid sm:grid-cols-3 gap-5">
-                <a href="[BASIC_PROGRAM_LINK]" class="group glass-panel p-6 rounded-2xl hover:bg-dark-800 transition-colors border-l-4 border-l-brand-400 flex flex-col h-full">
-                    <div class="w-10 h-10 bg-brand-400/10 text-brand-400 rounded-lg flex items-center justify-center mb-4">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Start Program</h3>
-                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Access your 90-day workout blueprint.</p>
-                    <span class="text-brand-400 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Open <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+            <h2 class="text-xl font-heading font-bold text-white mb-6">Content Hub</h2>
+            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="[BASIC_PROGRAM_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-l-2 border-brand flex flex-col group">
+                    <h3 class="text-lg font-bold text-white mb-1">Program</h3>
+                    <p class="text-zinc-400 text-xs mb-4">Your 90-day blueprint.</p>
+                    <span class="text-brand text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
                 </a>
-
-                <a href="[BASIC_TRACKER_LINK]" class="group glass-panel p-6 rounded-2xl hover:bg-dark-800 transition-colors border-t border-white/5 flex flex-col h-full">
-                    <div class="w-10 h-10 bg-white/5 text-zinc-300 rounded-lg flex items-center justify-center mb-4 border border-white/10">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Progress Sheets</h3>
-                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Log your weights and track measurements.</p>
-                    <span class="text-zinc-300 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Open <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                <a href="tracker.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
+                    <h3 class="text-lg font-bold text-white mb-1">Tracker</h3>
+                    <p class="text-zinc-400 text-xs mb-4">Daily execution logic.</p>
+                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
                 </a>
-
-                <a href="[BASIC_DRIVE_LINK]" class="group glass-panel p-6 rounded-2xl hover:bg-dark-800 transition-colors border-t border-white/5 flex flex-col h-full">
-                    <div class="w-10 h-10 bg-white/5 text-zinc-300 rounded-lg flex items-center justify-center mb-4 border border-white/10">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-white mb-2">Download Files</h3>
-                    <p class="text-zinc-400 text-sm mb-4 flex-grow">Get the offline PDFs and resources.</p>
-                    <span class="text-zinc-300 text-sm font-bold flex items-center gap-1 group-hover:translate-x-1 transition-transform">Download <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></span>
+                <a href="progress.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
+                    <h3 class="text-lg font-bold text-white mb-1">Progress</h3>
+                    <p class="text-zinc-400 text-xs mb-4">Weekly check-in data.</p>
+                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
+                </a>
+                <a href="[BASIC_DRIVE_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
+                    <h3 class="text-lg font-bold text-white mb-1">Downloads</h3>
+                    <p class="text-zinc-400 text-xs mb-4">Offline resources.</p>
+                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Download ↓</span>
                 </a>
             </div>
         </section>
     </main>
-
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const habits = ['habit-water', 'habit-steps', 'habit-workout'];
-            habits.forEach(id => {
-                const btn = document.getElementById(id);
-                if(!btn) return;
-                const indicator = btn.querySelector('.status-indicator');
-                
-                if (localStorage.getItem(id) === 'done') {
-                    btn.classList.replace('bg-dark-800', 'bg-brand-400');
-                    btn.classList.replace('text-white', 'text-black');
-                    btn.classList.remove('hover:bg-dark-700', 'border-white/5');
-                    btn.classList.add('border-brand-500');
-                    indicator.classList.replace('border-zinc-600', 'border-black');
-                    indicator.classList.add('bg-black', 'text-brand-400');
-                    indicator.innerHTML = '✓';
-                }
-
-                btn.addEventListener('click', () => {
-                    if (localStorage.getItem(id) === 'done') {
-                        localStorage.removeItem(id);
-                        btn.classList.replace('bg-brand-400', 'bg-dark-800');
-                        btn.classList.replace('text-black', 'text-white');
-                        btn.classList.add('hover:bg-dark-700', 'border-white/5');
-                        btn.classList.remove('border-brand-500');
-                        indicator.classList.replace('border-black', 'border-zinc-600');
-                        indicator.classList.remove('bg-black', 'text-brand-400');
-                        indicator.innerHTML = '';
-                    } else {
-                        localStorage.setItem(id, 'done');
-                        btn.classList.replace('bg-dark-800', 'bg-brand-400');
-                        btn.classList.replace('text-white', 'text-black');
-                        btn.classList.remove('hover:bg-dark-700', 'border-white/5');
-                        btn.classList.add('border-brand-500');
-                        indicator.classList.replace('border-zinc-600', 'border-black');
-                        indicator.classList.add('bg-black', 'text-brand-400');
-                        indicator.innerHTML = '✓';
-                    }
-                });
-            });
-        });
+        // Simple preview logic
+        const savedData = JSON.parse(localStorage.getItem('elevateTrackerData')) || { score: 0 };
+        document.getElementById('dash-score').innerText = savedData.score + '%';
     </script>
 </body>
 </html>
