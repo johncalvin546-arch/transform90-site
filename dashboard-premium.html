@@ -3,117 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VIP Dashboard | ELEVATE90</title>
+    <title>ELEVATE90 | VIP System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
+        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', brandHover: '#84cc16', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; -webkit-tap-highlight-color: transparent; }
         .glass-panel-vip { background: linear-gradient(145deg, rgba(20, 20, 22, 0.9), rgba(9, 9, 11, 0.95)); backdrop-filter: blur(24px); border: 1px solid rgba(163, 230, 53, 0.3); }
-        .box-glow-vip { box-shadow: 0 0 60px rgba(163, 230, 53, 0.2), inset 0 0 20px rgba(163, 230, 53, 0.05); }
+        .box-glow-vip { box-shadow: 0 0 50px rgba(163, 230, 53, 0.2), inset 0 0 15px rgba(163, 230, 53, 0.05); }
         .text-glow { text-shadow: 0 0 24px rgba(163, 230, 53, 0.6); }
+        .habit-active { background: #a3e635 !important; color: #09090b !important; border-color: #84cc16 !important; box-shadow: 0 0 20px rgba(163,230,53,0.4); transform: scale(1.02); }
+        .habit-active .check-circle { background: #09090b; color: #a3e635; border-color: #09090b; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .hover-lift:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(163,230,53,0.15); }
+        .gold-glow { text-shadow: 0 0 15px rgba(234, 179, 8, 0.5); }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative">
-    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-brand/15 blur-[180px] rounded-full pointer-events-none z-0"></div>
+<body class="min-h-screen flex flex-col relative pb-20">
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-brand/15 blur-[180px] rounded-full pointer-events-none z-0"></div>
 
-    <nav class="sticky top-0 w-full z-50 bg-dark/80 backdrop-blur-xl border-b border-brand/30">
-        <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand to-transparent opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between relative z-10">
-            <div class="flex items-center gap-4">
-                <div class="text-xl font-heading font-extrabold text-white">ELEVATE<span class="text-brand text-glow">90</span></div>
-                <div class="h-6 w-px bg-white/10"></div>
-                <div class="text-xs font-extrabold bg-brand text-black px-3 py-1.5 rounded-md uppercase shadow-[0_0_15px_rgba(163,230,53,0.5)]">VIP Premium</div>
+    <nav class="sticky top-0 w-full z-50 bg-dark/80 backdrop-blur-xl border-b border-brand/40 shadow-[0_4px_30px_rgba(163,230,53,0.1)]">
+        <div class="max-w-3xl mx-auto px-5 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="text-lg font-heading font-extrabold text-white text-glow">ELEVATE<span class="text-brand">90</span></div>
+                <div class="text-[10px] font-black bg-brand text-black px-2 py-1 rounded uppercase tracking-widest shadow-[0_0_15px_rgba(163,230,53,0.6)]">VIP</div>
             </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand animate-pulse text-glow"></span><span class="text-xs font-bold text-white uppercase tracking-widest hidden sm:block text-glow">System Active</span></div>
+            <div class="flex items-center gap-2">
+                <span class="text-[10px] font-bold text-zinc-300 uppercase tracking-widest">Coaching Active</span>
+                <span class="h-2 w-2 rounded-full bg-brand animate-pulse text-glow"></span>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-10">
-        <section class="flex flex-col md:flex-row justify-between md:items-center gap-6">
+    <main class="flex-grow max-w-3xl mx-auto w-full px-5 py-8 relative z-10 space-y-7">
+        
+        <header class="flex justify-between items-start">
             <div>
-                <h1 class="text-4xl md:text-5xl font-heading font-extrabold text-white tracking-tight">Welcome to the Inner Circle.</h1>
-                <p class="text-brand font-bold text-sm uppercase tracking-widest text-glow mt-2">Your all-access premium system is online.</p>
+                <div class="text-xs font-bold text-yellow-500 uppercase tracking-widest mb-1 gold-glow">Phase 2 / Week 6</div>
+                <h1 class="text-3xl font-heading font-extrabold text-white">The Inner Circle</h1>
+                <p class="text-sm text-zinc-400 mt-1">Total accountability. Show up. Execute. Log it.</p>
             </div>
-            <div class="flex gap-3 w-full md:w-auto">
-                <a href="[PREMIUM_PROGRAM_LINK]" class="w-full text-center bg-brand hover:bg-[#84cc16] text-black px-10 py-4 rounded-xl font-extrabold transition-all shadow-[0_0_25px_rgba(163,230,53,0.4)] hover:scale-105">Start Execution</a>
+            <div class="bg-gradient-to-br from-brand/20 to-dark border border-brand/40 px-4 py-2 rounded-xl text-center box-glow-vip">
+                <div class="text-[10px] text-brand uppercase font-bold tracking-widest text-glow">Streak</div>
+                <div class="text-2xl font-heading font-black text-white flex items-center gap-1 justify-center">🔥 <span id="streak-counter">0</span></div>
+            </div>
+        </header>
+
+        <section class="grid grid-cols-2 gap-3">
+            <a href="#" class="bg-[#25D366]/10 border border-[#25D366]/30 p-4 rounded-xl flex items-center gap-3 hover-lift">
+                <svg class="w-6 h-6 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564c.173.087.289.129.332.202.043.073.043.423-.101.827z"></path></svg>
+                <div>
+                    <h3 class="text-xs font-bold text-white">Priority WhatsApp</h3>
+                    <p class="text-[10px] text-zinc-400">Direct coach access</p>
+                </div>
+            </a>
+            <a href="#" class="bg-dark/50 border border-brand/30 p-4 rounded-xl flex items-center gap-3 hover-lift box-glow-vip">
+                <svg class="w-6 h-6 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <div>
+                    <h3 class="text-xs font-bold text-white">Submit Form Check</h3>
+                    <p class="text-[10px] text-zinc-400">Upload lifting video</p>
+                </div>
+            </a>
+        </section>
+
+        <section class="glass-panel-vip rounded-3xl p-6 box-glow-vip relative overflow-hidden border-t border-brand/40">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand via-[#84cc16] to-brand"></div>
+            <div class="flex justify-between items-center mb-6 pt-2 border-b border-white/5 pb-4">
+                <div class="flex-1 pr-4">
+                    <div class="text-xs font-bold text-zinc-500 uppercase">Coach Feedback</div>
+                    <div class="text-sm font-bold text-white mt-1 transition-all leading-tight" id="coach-feedback">Awaiting execution data.</div>
+                </div>
+                <div class="text-right pl-4 border-l border-white/5">
+                    <div class="text-xs font-bold text-zinc-500 uppercase">Score</div>
+                    <div class="text-4xl font-heading font-black text-white transition-all text-glow" id="daily-score">0<span class="text-brand text-2xl">%</span></div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-4 gap-2">
+                <button onclick="toggleHabit('water')" id="btn-water" class="bg-dark/60 border border-white/5 hover:bg-dark p-3 rounded-xl flex flex-col justify-center items-center transition-all font-bold gap-1 hover-lift">
+                    <span class="text-xl">💧</span>
+                    <span class="text-[10px] text-white">Water</span>
+                    <div class="check-circle w-4 h-4 rounded-full border border-zinc-600 flex items-center justify-center text-[8px] mt-1 transition-colors"></div>
+                </button>
+                <button onclick="toggleHabit('protein')" id="btn-protein" class="bg-dark/60 border border-white/5 hover:bg-dark p-3 rounded-xl flex flex-col justify-center items-center transition-all font-bold gap-1 hover-lift">
+                    <span class="text-xl">🥩</span>
+                    <span class="text-[10px] text-white">Protein</span>
+                    <div class="check-circle w-4 h-4 rounded-full border border-zinc-600 flex items-center justify-center text-[8px] mt-1 transition-colors"></div>
+                </button>
+                <button onclick="toggleHabit('steps')" id="btn-steps" class="bg-dark/60 border border-white/5 hover:bg-dark p-3 rounded-xl flex flex-col justify-center items-center transition-all font-bold gap-1 hover-lift">
+                    <span class="text-xl">👟</span>
+                    <span class="text-[10px] text-white">10k</span>
+                    <div class="check-circle w-4 h-4 rounded-full border border-zinc-600 flex items-center justify-center text-[8px] mt-1 transition-colors"></div>
+                </button>
+                <button onclick="toggleHabit('workout')" id="btn-workout" class="bg-dark/60 border border-white/5 hover:bg-dark p-3 rounded-xl flex flex-col justify-center items-center transition-all font-bold gap-1 hover-lift">
+                    <span class="text-xl">🏋️</span>
+                    <span class="text-[10px] text-white">Workout</span>
+                    <div class="check-circle w-4 h-4 rounded-full border border-zinc-600 flex items-center justify-center text-[8px] mt-1 transition-colors"></div>
+                </button>
             </div>
         </section>
 
-        <section class="glass-panel-vip rounded-[2rem] p-8 box-glow-vip relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand via-[#84cc16] to-brand"></div>
-            <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-heading font-bold text-white">VIP Dashboard</h2>
-                <div class="text-xs font-bold text-zinc-400 uppercase">Streak: <span class="text-brand text-lg text-glow" id="dash-streak">0</span></div>
-            </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-dark/60 rounded-xl p-5 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Score</div>
-                    <div class="text-3xl font-heading font-extrabold text-white" id="dash-score">0<span class="text-brand text-xl">%</span></div>
-                </div>
-                <div class="bg-dark/60 rounded-xl p-5 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Consistency</div>
-                    <div class="text-3xl font-heading font-extrabold text-white">100<span class="text-brand text-xl">%</span></div>
-                </div>
-                <div class="col-span-2 bg-gradient-to-r from-brand/20 to-brand/5 rounded-xl p-5 border border-brand/30 flex flex-col justify-center">
-                    <div class="text-brand text-xs font-extrabold uppercase mb-1 text-glow">Priority Feedback</div>
-                    <div class="text-sm font-medium text-white">Record your heaviest set today and submit it for your form audit.</div>
+        <section>
+            <h2 class="text-lg font-heading font-bold text-white mb-3">The Coaching Framework</h2>
+            <div class="glass-panel-vip rounded-2xl overflow-hidden border border-brand/30 box-glow-vip">
+                <button class="w-full flex justify-between items-center p-5 focus:outline-none bg-dark/30 hover:bg-white/5 transition-colors" onclick="toggleAccordion('framework')">
+                    <div class="text-left">
+                        <h3 class="font-bold text-white text-base">📈 Phase 2: Overload (Wk 5-8)</h3>
+                        <p class="text-[11px] text-brand mt-1 uppercase tracking-wider font-bold">Focus: Drive Mechanical Tension</p>
+                    </div>
+                    <svg id="icon-framework" class="w-5 h-5 text-brand transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                
+                <div id="content-framework" class="accordion-content bg-dark/80">
+                    <div class="p-5 border-t border-brand/20 space-y-4">
+                        <p class="text-sm text-white font-bold leading-relaxed border-l-2 border-brand pl-3">
+                            The Rule of Overload: Every single week, you must do one of two things:
+                        </p>
+                        <ul class="space-y-2 text-sm text-zinc-300 ml-4">
+                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 bg-brand rounded-full mt-1.5 shrink-0"></span> <span>Add 1 more rep to your sets.</span></li>
+                            <li class="flex items-start gap-2"><span class="w-1.5 h-1.5 bg-brand rounded-full mt-1.5 shrink-0"></span> <span>Add 1.25kg - 2.5kg to the bar.</span></li>
+                        </ul>
+                        <div class="bg-brand/10 p-3 rounded-lg border border-brand/20 text-xs text-zinc-300 italic">
+                            If you do the exact same weight and reps as last week, your body has no reason to change.
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <div class="flex items-center gap-3 mb-6"><h2 class="text-2xl font-heading font-bold text-white">VIP Support</h2><span class="bg-brand text-black text-[10px] font-black px-2 py-0.5 rounded uppercase">Exclusive</span></div>
-            <div class="grid sm:grid-cols-2 gap-5 mb-10">
-                <a href="[PREMIUM_WHATSAPP_LINK]" target="_blank" class="bg-[#25D366]/10 border border-[#25D366]/30 p-6 rounded-2xl hover:bg-[#25D366]/20 transition-all flex items-center justify-between group">
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-1">Priority WhatsApp</h3>
-                        <p class="text-zinc-400 text-sm">Direct line for accountability.</p>
+            <h2 class="text-lg font-heading font-bold text-white mb-3">Living Room Protocol (No Eq)</h2>
+            <div class="glass-panel rounded-2xl overflow-hidden border border-white/10">
+                <button class="w-full flex justify-between items-center p-5 focus:outline-none hover:bg-white/5 transition-colors" onclick="toggleAccordion('home')">
+                    <div class="text-left">
+                        <h3 class="font-bold text-white text-base">Circuit A: Full Body Burn</h3>
+                        <p class="text-[11px] text-zinc-400 mt-1 uppercase tracking-wider">4 Rounds • 60s Rest</p>
                     </div>
-                    <span class="bg-[#25D366] text-black text-sm font-bold px-4 py-2 rounded-lg">Message</span>
-                </a>
-                <a href="[PREMIUM_FORMCHECK_LINK]" class="bg-panel border border-brand/30 p-6 rounded-2xl hover:border-brand transition-all flex items-center justify-between group">
-                    <div>
-                        <h3 class="text-lg font-bold text-white mb-1">Submit Form Check</h3>
-                        <p class="text-zinc-400 text-sm">Upload video for technique review.</p>
+                    <svg id="icon-home" class="w-5 h-5 text-brand transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                
+                <div id="content-home" class="accordion-content bg-dark/50">
+                    <div class="p-5 border-t border-white/5 space-y-5">
+                        <div class="pb-3 border-b border-white/5">
+                            <h4 class="font-bold text-white text-sm">1. Tempo Push-ups</h4>
+                            <p class="text-xs text-zinc-400">15 Reps (3s down, 1s up). Alt: Knees.</p>
+                        </div>
+                        <div class="pb-3 border-b border-white/5">
+                            <h4 class="font-bold text-white text-sm">2. Backpack Bent-Over Rows</h4>
+                            <p class="text-xs text-zinc-400">20 Reps (Stuff bag with books).</p>
+                        </div>
+                        
+                        <button onclick="completeWorkout('home')" id="complete-home" class="w-full bg-brand hover:bg-brandHover text-black font-extrabold py-3.5 rounded-xl transition-all shadow-[0_0_15px_rgba(163,230,53,0.3)] hover-lift text-sm">
+                            Log Execution
+                        </button>
                     </div>
-                    <span class="bg-white/10 text-white border border-white/20 text-sm font-bold px-4 py-2 rounded-lg group-hover:bg-brand group-hover:text-black group-hover:border-brand transition-all">Submit</span>
-                </a>
+                </div>
             </div>
+        </section>
 
-            <h2 class="text-2xl font-heading font-bold text-white mb-6">The Arsenal</h2>
-            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-5">
-                <a href="[PREMIUM_PROGRAM_LINK]" class="bg-panel border border-white/10 p-5 rounded-2xl hover:border-white/30 transition-all">
-                    <h3 class="text-base font-bold text-white mb-1">ALL Programs</h3>
-                    <p class="text-zinc-400 text-xs">Full library access.</p>
+        <section>
+            <h2 class="text-lg font-heading font-bold text-white mb-3">Premium Vault Downloads</h2>
+            <div class="flex flex-col gap-2">
+                <a href="/files/06_Premium_All_Access_Vault.pdf" download class="glass-panel-vip p-5 rounded-xl hover:bg-white/5 transition-all flex justify-between items-center group border border-brand/30 hover-lift">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center text-brand">⭐</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white group-hover:text-brand transition-colors text-glow">All Access Vault (All Programs)</h4>
+                        </div>
+                    </div>
+                    <svg class="w-4 h-4 text-zinc-500 group-hover:text-brand transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 </a>
-                <a href="[PREMIUM_MEAL_LINK]" class="bg-panel border border-white/10 p-5 rounded-2xl hover:border-white/30 transition-all">
-                    <h3 class="text-base font-bold text-white mb-1">Meal Guide</h3>
-                    <p class="text-zinc-400 text-xs">Local food swaps.</p>
+                <a href="/files/07_Coaching_Framework.pdf" download class="glass-panel p-4 rounded-xl hover:bg-white/5 transition-all flex justify-between items-center group hover-lift border border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-zinc-400">📈</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white group-hover:text-brand transition-colors">12-Week Coaching Framework</h4>
+                        </div>
+                    </div>
+                    <svg class="w-4 h-4 text-zinc-500 group-hover:text-brand transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 </a>
-                <a href="[PREMIUM_EXERCISE_LINK]" class="bg-panel border border-white/10 p-5 rounded-2xl hover:border-white/30 transition-all">
-                    <h3 class="text-base font-bold text-white mb-1">Exercise Lib</h3>
-                    <p class="text-zinc-400 text-xs">Video database.</p>
-                </a>
-                <a href="tracker.html" class="bg-brand/10 border border-brand/20 p-5 rounded-2xl hover:border-brand/50 transition-all">
-                    <h3 class="text-base font-bold text-brand mb-1">Interactive Tracker</h3>
-                    <p class="text-zinc-400 text-xs">Log daily execution.</p>
-                </a>
-                <a href="progress.html" class="bg-brand/10 border border-brand/20 p-5 rounded-2xl hover:border-brand/50 transition-all">
-                    <h3 class="text-base font-bold text-brand mb-1">Progress Hub</h3>
-                    <p class="text-zinc-400 text-xs">Log weekly check-ins.</p>
+                <a href="/files/08_Premium_Tracker.pdf" download class="glass-panel p-4 rounded-xl hover:bg-white/5 transition-all flex justify-between items-center group hover-lift border border-white/10">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-white/5 rounded-lg flex items-center justify-center text-zinc-400">📊</div>
+                        <div>
+                            <h4 class="text-sm font-bold text-white group-hover:text-brand transition-colors">VIP Progress Sheets</h4>
+                        </div>
+                    </div>
+                    <svg class="w-4 h-4 text-zinc-500 group-hover:text-brand transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                 </a>
             </div>
         </section>
     </main>
+
     <script>
-        const savedData = JSON.parse(localStorage.getItem('elevateTrackerData')) || { score: 0, streak: 0 };
-        document.getElementById('dash-score').innerHTML = savedData.score + '<span class="text-brand text-xl">%</span>';
-        document.getElementById('dash-streak').innerText = savedData.streak;
+        let state = JSON.parse(localStorage.getItem('sys_vip_v2')) || { habits: {}, workouts: {}, streak: 24 };
+
+        function updateScore() {
+            let completed = 0;
+            if(state.habits['water']) completed++;
+            if(state.habits['protein']) completed++;
+            if(state.habits['steps']) completed++;
+            if(state.habits['workout']) completed++;
+            
+            let score = Math.round((completed / 4) * 100);
+            document.getElementById('daily-score').innerHTML = score + '<span class="text-brand text-2xl">%</span>';
+            
+            const feedbackEl = document.getElementById('coach-feedback');
+            if(score === 100) {
+                feedbackEl.innerHTML = '<span class="text-brand text-glow">Perfect execution. This is how results happen.</span>';
+                if(!state.streakAdded) { state.streak++; state.streakAdded = true; }
+            } else if (score >= 70) {
+                feedbackEl.innerText = "Good work. Tighten up consistency to hit 100%.";
+                if(state.streakAdded) { state.streak--; state.streakAdded = false; }
+            } else {
+                feedbackEl.innerText = "You're slipping. Fix this today.";
+                if(state.streakAdded) { state.streak--; state.streakAdded = false; }
+            }
+            document.getElementById('streak-counter').innerText = state.streak;
+
+            ['water', 'protein', 'steps', 'workout'].forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if(state.habits[id]) {
+                    btn.classList.add('habit-active');
+                    btn.querySelector('.check-circle').innerText = '✓';
+                } else {
+                    btn.classList.remove('habit-active');
+                    btn.querySelector('.check-circle').innerText = '';
+                }
+            });
+
+            ['home'].forEach(id => {
+                const btn = document.getElementById('complete-' + id);
+                if(btn && state.workouts[id]) {
+                    btn.classList.replace('bg-brand', 'bg-white/10');
+                    btn.classList.replace('text-black', 'text-brand');
+                    btn.classList.remove('shadow-[0_0_15px_rgba(163,230,53,0.3)]');
+                    btn.innerText = '✓ Session Logged';
+                }
+            });
+            
+            localStorage.setItem('sys_vip_v2', JSON.stringify(state));
+        }
+
+        function toggleHabit(id) { state.habits[id] = !state.habits[id]; updateScore(); }
+        function completeWorkout(id) { state.workouts[id] = true; state.habits['workout'] = true; updateScore(); toggleAccordion(id); }
+
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+            if (content.style.maxHeight) { content.style.maxHeight = null; icon.style.transform = 'rotate(0deg)'; } 
+            else { content.style.maxHeight = content.scrollHeight + "px"; icon.style.transform = 'rotate(180deg)'; }
+        }
+
+        updateScore();
     </script>
 </body>
 </html>
