@@ -814,5 +814,12 @@
             });
         });
     </script>
-</body>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const supabaseUrl = "NEXT_PUBLIC_SUPABASE_URL=https://wjvdafbnkpylpnbmdqet.supabase.co"
+const supabaseKey = "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_sNiyMnyQiR65JXg_P67x4A_39e_GCrr"
+
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+</script></body>
 </html>
