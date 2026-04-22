@@ -3,94 +3,229 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basic Dashboard | ELEVATE90</title>
+    <title>ELEVATE90 | Foundation System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script>
-        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
+        tailwind.config = { theme: { extend: { colors: { brand: '#a3e635', brandHover: '#84cc16', dark: '#09090b', panel: '#18181b' }, fontFamily: { heading: ['Manrope', 'sans-serif'], body: ['Inter', 'sans-serif'] } } } }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; -webkit-tap-highlight-color: transparent; }
         .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
         .box-glow { box-shadow: 0 0 30px rgba(163, 230, 53, 0.05); }
+        .habit-active { background: #a3e635 !important; color: #09090b !important; border-color: #84cc16 !important; }
+        .habit-active .check-circle { background: #09090b; color: #a3e635; border-color: #09090b; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative">
+<body class="min-h-screen flex flex-col relative pb-20">
     <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-brand/5 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
     <nav class="sticky top-0 w-full z-50 glass-panel border-b border-white/5">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-4">
-                <div class="text-xl font-heading font-extrabold text-white">ELEVATE<span class="text-brand">90</span></div>
-                <div class="h-6 w-px bg-white/10"></div>
-                <div class="text-xs font-bold bg-white/5 text-zinc-300 px-3 py-1.5 rounded-md uppercase border border-white/5">Basic</div>
+        <div class="max-w-3xl mx-auto px-5 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="text-lg font-heading font-extrabold text-white">ELEVATE<span class="text-brand">90</span></div>
+                <div class="text-[10px] font-bold bg-white/10 text-zinc-300 px-2 py-1 rounded uppercase tracking-widest">Basic</div>
             </div>
-            <div class="flex items-center gap-4">
-                <div class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span><span class="text-xs font-bold text-zinc-400 uppercase tracking-widest hidden sm:block">System Active</span></div>
+            <div class="flex items-center gap-2">
+                <span class="h-2 w-2 rounded-full bg-brand animate-pulse"></span>
             </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto w-full px-6 py-10 relative z-10 space-y-10">
-        <section class="flex flex-col md:flex-row justify-between md:items-center gap-6">
-            <div>
-                <h1 class="text-3xl md:text-4xl font-heading font-extrabold text-white tracking-tight">Welcome back.</h1>
-                <p class="text-zinc-400 font-medium mt-1">Stay consistent. Execute the daily plan.</p>
+    <main class="flex-grow max-w-3xl mx-auto w-full px-5 py-8 relative z-10 space-y-8">
+        
+        <section class="glass-panel rounded-3xl p-6 box-glow">
+            <div class="flex justify-between items-end mb-6">
+                <div>
+                    <h1 class="text-2xl font-heading font-extrabold text-white">Daily Execution</h1>
+                    <p class="text-sm text-zinc-400 mt-1">Consistency builds the foundation.</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-xs font-bold text-zinc-500 uppercase">Score</div>
+                    <div class="text-3xl font-heading font-black text-brand" id="daily-score">0%</div>
+                </div>
             </div>
-            <div class="flex gap-3">
-                <a href="[BASIC_PROGRAM_LINK]" class="bg-brand hover:bg-[#84cc16] text-black px-6 py-3 rounded-xl font-bold transition-all">Start Workout</a>
-                <a href="tracker.html" class="bg-panel border border-white/10 hover:border-brand/30 text-white px-6 py-3 rounded-xl font-bold transition-all">Open Tracker</a>
+
+            <div class="space-y-3">
+                <button onclick="toggleHabit('water')" id="btn-water" class="w-full glass-panel bg-panel hover:bg-dark p-4 rounded-xl flex justify-between items-center transition-all font-bold text-sm">
+                    <span class="flex items-center gap-3 text-lg">💧 <span class="text-sm text-white">Drink 3L Water</span></span>
+                    <div class="check-circle w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                </button>
+                <button onclick="toggleHabit('steps')" id="btn-steps" class="w-full glass-panel bg-panel hover:bg-dark p-4 rounded-xl flex justify-between items-center transition-all font-bold text-sm">
+                    <span class="flex items-center gap-3 text-lg">👟 <span class="text-sm text-white">10k Steps</span></span>
+                    <div class="check-circle w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                </button>
+                <button onclick="toggleHabit('workout')" id="btn-workout" class="w-full glass-panel bg-panel hover:bg-dark p-4 rounded-xl flex justify-between items-center transition-all font-bold text-sm">
+                    <span class="flex items-center gap-3 text-lg">🏋️ <span class="text-sm text-white">Execute Workout</span></span>
+                    <div class="check-circle w-6 h-6 rounded-full border-2 border-zinc-600 flex items-center justify-center text-xs"></div>
+                </button>
             </div>
         </section>
 
-        <section class="glass-panel rounded-3xl p-6 box-glow">
-            <h2 class="text-xl font-heading font-bold text-white mb-6">Execution Overview</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Score</div>
-                    <div class="text-2xl font-heading font-bold text-white" id="dash-score">0%</div>
+        <section>
+            <h2 class="text-xl font-heading font-bold text-white mb-4">The Foundation Blueprint</h2>
+            
+            <div class="space-y-4">
+                <div class="glass-panel rounded-2xl overflow-hidden border border-white/5">
+                    <button class="w-full flex justify-between items-center p-5 focus:outline-none" onclick="toggleAccordion('day1')">
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg">Day 1: Lower Body & Core</h3>
+                            <p class="text-xs text-zinc-400 mt-1">Focus: Eccentric control</p>
+                        </div>
+                        <svg id="icon-day1" class="w-5 h-5 text-brand transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div id="content-day1" class="accordion-content bg-dark/50">
+                        <div class="p-5 border-t border-white/5 space-y-6">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-white text-sm">1. Goblet Squat</h4>
+                                    <span class="bg-white/10 text-zinc-300 text-[10px] px-2 py-1 rounded font-bold tracking-wider">3x 10-12</span>
+                                </div>
+                                <p class="text-xs text-zinc-400 mb-2"><span class="text-brand font-semibold">Coach:</span> Chest up, push knees out. Control the descent.</p>
+                                <div class="text-[11px] text-zinc-500 bg-white/5 p-2 rounded">Alt: Bodyweight Box Squat</div>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-white text-sm">2. Leg Press (Machine)</h4>
+                                    <span class="bg-white/10 text-zinc-300 text-[10px] px-2 py-1 rounded font-bold tracking-wider">3x 12-15</span>
+                                </div>
+                                <p class="text-xs text-zinc-400"><span class="text-brand font-semibold">Coach:</span> Never lock knees fully at the top. Keep tension.</p>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-white text-sm">3. Forearm Plank</h4>
+                                    <span class="bg-white/10 text-zinc-300 text-[10px] px-2 py-1 rounded font-bold tracking-wider">3x 45s</span>
+                                </div>
+                                <p class="text-xs text-zinc-400"><span class="text-brand font-semibold">Coach:</span> Squeeze glutes hard. Brace core like taking a punch.</p>
+                            </div>
+
+                            <button onclick="completeWorkout('day1')" id="complete-day1" class="w-full bg-brand hover:bg-brandHover text-black font-extrabold py-3.5 rounded-xl transition-all flex justify-center items-center gap-2">
+                                Mark Workout Completed
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-dark/50 rounded-xl p-4 border border-white/5">
-                    <div class="text-zinc-500 text-xs font-bold uppercase mb-1">Consistency</div>
-                    <div class="text-2xl font-heading font-bold text-brand">100%</div>
-                </div>
-                <div class="col-span-2 bg-dark/30 rounded-xl p-4 border border-white/5 flex flex-col justify-center">
-                    <div class="text-zinc-400 text-xs font-bold uppercase mb-1">Coach Feedback</div>
-                    <div class="text-sm font-medium text-white">Log your daily metrics in the tracker to build momentum.</div>
+
+                <div class="glass-panel rounded-2xl overflow-hidden border border-white/5">
+                    <button class="w-full flex justify-between items-center p-5 focus:outline-none" onclick="toggleAccordion('day2')">
+                        <div class="text-left">
+                            <h3 class="font-bold text-white text-lg">Day 2: Upper Body Focus</h3>
+                            <p class="text-xs text-zinc-400 mt-1">Focus: Scapular retraction</p>
+                        </div>
+                        <svg id="icon-day2" class="w-5 h-5 text-brand transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    
+                    <div id="content-day2" class="accordion-content bg-dark/50">
+                        <div class="p-5 border-t border-white/5 space-y-6">
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-white text-sm">1. Lat Pulldown</h4>
+                                    <span class="bg-white/10 text-zinc-300 text-[10px] px-2 py-1 rounded font-bold tracking-wider">3x 10-12</span>
+                                </div>
+                                <p class="text-xs text-zinc-400"><span class="text-brand font-semibold">Coach:</span> Pull elbows down into your back pockets.</p>
+                            </div>
+                            
+                            <div>
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-bold text-white text-sm">2. DB Chest Press (Flat)</h4>
+                                    <span class="bg-white/10 text-zinc-300 text-[10px] px-2 py-1 rounded font-bold tracking-wider">3x 10-12</span>
+                                </div>
+                                <p class="text-xs text-zinc-400"><span class="text-brand font-semibold">Coach:</span> Pin shoulders back to bench. Push up and slightly together.</p>
+                            </div>
+
+                            <button onclick="completeWorkout('day2')" id="complete-day2" class="w-full bg-brand hover:bg-brandHover text-black font-extrabold py-3.5 rounded-xl transition-all flex justify-center items-center gap-2">
+                                Mark Workout Completed
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section>
-            <h2 class="text-xl font-heading font-bold text-white mb-6">Content Hub</h2>
-            <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-                <a href="[BASIC_PROGRAM_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-l-2 border-brand flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Program</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Your 90-day blueprint.</p>
-                    <span class="text-brand text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
+            <h2 class="text-xl font-heading font-bold text-white mb-4">Resource Vault</h2>
+            <div class="grid grid-cols-2 gap-4">
+                <a href="/files/01_Foundation_Blueprint.pdf" download class="glass-panel p-4 rounded-xl hover:bg-white/5 transition-all text-center flex flex-col items-center justify-center gap-2 group">
+                    <svg class="w-6 h-6 text-zinc-400 group-hover:text-brand transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span class="text-xs font-bold text-white">Download Program</span>
                 </a>
-                <a href="tracker.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Tracker</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Daily execution logic.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
-                </a>
-                <a href="progress.html" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Progress</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Weekly check-in data.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Open →</span>
-                </a>
-                <a href="[BASIC_DRIVE_LINK]" class="glass-panel p-6 rounded-2xl hover:bg-panel transition-all border-t border-white/5 flex flex-col group">
-                    <h3 class="text-lg font-bold text-white mb-1">Downloads</h3>
-                    <p class="text-zinc-400 text-xs mb-4">Offline resources.</p>
-                    <span class="text-zinc-300 text-sm font-bold mt-auto group-hover:translate-x-1 transition-transform">Download ↓</span>
+                <a href="/files/02_Basic_Tracker.pdf" download class="glass-panel p-4 rounded-xl hover:bg-white/5 transition-all text-center flex flex-col items-center justify-center gap-2 group">
+                    <svg class="w-6 h-6 text-zinc-400 group-hover:text-brand transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span class="text-xs font-bold text-white">Offline Tracker</span>
                 </a>
             </div>
         </section>
     </main>
+
     <script>
-        // Simple preview logic
-        const savedData = JSON.parse(localStorage.getItem('elevateTrackerData')) || { score: 0 };
-        document.getElementById('dash-score').innerText = savedData.score + '%';
+        // --- Tracker State Logic ---
+        let state = JSON.parse(localStorage.getItem('sys_basic_state')) || { habits: {}, workouts: {} };
+
+        function updateScore() {
+            let completed = 0;
+            if(state.habits['water']) completed++;
+            if(state.habits['steps']) completed++;
+            if(state.habits['workout']) completed++;
+            let score = Math.round((completed / 3) * 100);
+            document.getElementById('daily-score').innerText = score + '%';
+            
+            // Render buttons
+            ['water', 'steps', 'workout'].forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if(state.habits[id]) {
+                    btn.classList.add('habit-active');
+                    btn.querySelector('.check-circle').innerText = '✓';
+                } else {
+                    btn.classList.remove('habit-active');
+                    btn.querySelector('.check-circle').innerText = '';
+                }
+            });
+
+            // Render Workouts
+            ['day1', 'day2'].forEach(id => {
+                const btn = document.getElementById('complete-' + id);
+                if(btn && state.workouts[id]) {
+                    btn.classList.replace('bg-brand', 'bg-white/10');
+                    btn.classList.replace('text-black', 'text-brand');
+                    btn.innerText = '✓ Completed';
+                }
+            });
+            
+            localStorage.setItem('sys_basic_state', JSON.stringify(state));
+        }
+
+        function toggleHabit(id) {
+            state.habits[id] = !state.habits[id];
+            updateScore();
+        }
+
+        function completeWorkout(id) {
+            state.workouts[id] = true;
+            state.habits['workout'] = true; // Auto-check habit
+            updateScore();
+            toggleAccordion(id); // Close it
+        }
+
+        // --- UI Logic ---
+        function toggleAccordion(id) {
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+            
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // Init
+        updateScore();
     </script>
 </body>
 </html>
