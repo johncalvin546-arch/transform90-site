@@ -4,101 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | ELEVATE90</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .accent-glow {
-            box-shadow: 0 0 15px rgba(163, 230, 53, 0.2);
-        }
-    </style>
-</head>
-<body class="bg-gray-950 text-gray-100 min-h-screen font-sans selection:bg-lime-400 selection:text-gray-900 pb-12">
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body id="dashboard-page" class="bg-gray-950 text-gray-100 min-h-screen font-sans selection:bg-lime-400 selection:text-gray-900 pb-12">
+
+    <!-- NAV -->
     <nav class="glass-panel sticky top-0 z-50 w-full px-6 py-4 flex justify-between items-center mb-8">
-        <div class="text-xl font-bold tracking-wider text-white">ELEVATE<span class="text-lime-400">90</span></div>
-        <div class="text-sm text-gray-400">Basic Tier</div>
+        <div class="text-xl font-bold tracking-wider text-white">
+            ELEVATE<span class="text-lime-400">90</span>
+        </div>
+        <button id="logout-btn" class="text-sm text-gray-400 hover:text-white transition-colors">
+            Sign Out
+        </button>
     </nav>
 
     <main class="max-w-4xl mx-auto px-4">
-        
+
+        <!-- HEADER -->
         <header class="mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
             <div>
-                <h1 class="text-3xl md:text-4xl font-bold mb-2 tracking-tight">Execution Dashboard</h1>
-                <p class="text-gray-400 text-lg">Track your daily non-negotiables.</p>
+                <h1 class="text-3xl md:text-4xl font-bold mb-2 tracking-tight">
+                    Execution Dashboard
+                </h1>
+                <p class="text-gray-400 text-lg">
+                    Track your daily non-negotiables.
+                </p>
             </div>
-            
+
             <div class="glass-panel px-6 py-4 rounded-xl border border-lime-400/30 accent-glow flex items-center gap-4 min-w-[200px]">
                 <div class="text-lime-400 text-3xl animate-pulse">🔥</div>
                 <div>
-                    <div class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">Current Streak</div>
-                    <div class="text-3xl font-bold text-white"><span id="streak-counter">0</span> <span class="text-lg text-gray-400 font-normal">Days</span></div>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest font-semibold mb-1">
+                        Current Streak
+                    </div>
+                    <div class="text-3xl font-bold text-white">
+                        <span id="streak-counter">0</span>
+                        <span class="text-lg text-gray-400 font-normal">Days</span>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <div id="feedback-message" class="hidden transition-opacity duration-300 mb-6 w-full glass-panel border-lime-400/50 bg-lime-400/10 text-lime-400 px-4 py-3 rounded-xl text-center text-sm font-medium"></div>
+        <!-- FEEDBACK -->
+        <div id="feedback-message" class="hidden transition-opacity duration-300 mb-6 w-full glass-panel border-lime-400/50 bg-lime-400/10 text-lime-400 px-4 py-3 rounded-xl text-center text-sm font-medium opacity-0"></div>
 
         <div class="grid md:grid-cols-3 gap-6">
-            
+
+            <!-- HABITS -->
             <section class="md:col-span-2 glass-panel rounded-2xl p-6 md:p-8">
                 <div class="flex justify-between items-end mb-6">
                     <div>
                         <h2 class="text-xl font-bold text-white mb-1">Daily Protocols</h2>
-                        <p class="text-sm text-gray-400">Resets every day at midnight.</p>
+                        <p class="text-sm text-gray-400">Resets automatically at midnight.</p>
                     </div>
-                    <span id="progress-text" class="text-sm font-bold text-lime-400 bg-lime-400/10 px-3 py-1 rounded-full">0%</span>
+                    <span id="progress-text" class="text-sm font-bold text-lime-400 bg-lime-400/10 px-3 py-1 rounded-full">
+                        0%
+                    </span>
                 </div>
 
                 <div class="w-full bg-gray-800 rounded-full h-3 mb-8 overflow-hidden border border-gray-700">
-                    <div id="progress-bar-fill" class="bg-lime-400 h-full rounded-full transition-all duration-500 ease-out" style="width: 0%"></div>
+                    <div id="progress-bar-fill" class="bg-lime-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
 
                 <div class="space-y-4">
-                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-600 cursor-pointer transition-all group">
-                        <input type="checkbox" id="habit-water" class="habit-checkbox w-6 h-6 rounded border-gray-600 text-lime-400 focus:ring-lime-400 focus:ring-offset-gray-900 bg-gray-800 transition-colors">
-                        <span class="text-lg font-medium text-gray-200 group-hover:text-white">Drink 3L of Water</span>
-                    </label>
-                    
-                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-600 cursor-pointer transition-all group">
-                        <input type="checkbox" id="habit-workout" class="habit-checkbox w-6 h-6 rounded border-gray-600 text-lime-400 focus:ring-lime-400 focus:ring-offset-gray-900 bg-gray-800 transition-colors">
-                        <span class="text-lg font-medium text-gray-200 group-hover:text-white">Complete Daily Programming</span>
+                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 cursor-pointer">
+                        <input type="checkbox" id="habit-water" class="w-6 h-6 text-lime-400 bg-gray-800">
+                        <span class="text-lg">Drink 3L of Water</span>
                     </label>
 
-                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-gray-600 cursor-pointer transition-all group">
-                        <input type="checkbox" id="habit-meals" class="habit-checkbox w-6 h-6 rounded border-gray-600 text-lime-400 focus:ring-lime-400 focus:ring-offset-gray-900 bg-gray-800 transition-colors">
-                        <span class="text-lg font-medium text-gray-200 group-hover:text-white">Hit Protein Target</span>
+                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 cursor-pointer">
+                        <input type="checkbox" id="habit-workout" class="w-6 h-6 text-lime-400 bg-gray-800">
+                        <span class="text-lg">Complete Daily Programming</span>
+                    </label>
+
+                    <label class="flex items-center gap-4 p-5 rounded-xl bg-gray-900/50 border border-gray-800 cursor-pointer">
+                        <input type="checkbox" id="habit-meals" class="w-6 h-6 text-lime-400 bg-gray-800">
+                        <span class="text-lg">Hit Protein Target</span>
                     </label>
                 </div>
             </section>
 
-            <section class="glass-panel rounded-2xl p-6 md:p-8 h-fit">
+            <!-- FILES -->
+            <section class="glass-panel rounded-2xl p-6 md:p-8">
                 <h2 class="text-xl font-bold mb-6 text-white">Resource Vault</h2>
+
                 <div class="space-y-4">
-                    <a href="files/foundation-blueprint.pdf" download="ELEVATE90_Blueprint.pdf" target="_blank" class="block w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-lime-400/50 hover:bg-gray-800 transition-all group">
-                        <div class="text-xs text-gray-400 mb-1 font-semibold uppercase tracking-wider">Phase 1</div>
-                        <div class="font-medium text-gray-200 group-hover:text-lime-400 flex justify-between items-center">
-                            Foundation Guide
-                            <svg class="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        </div>
+                    <a href="files/foundation-blueprint.pdf" target="_blank" class="block p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-lime-400/50">
+                        Foundation Guide
                     </a>
 
-                    <a href="files/basic-tracker.pdf" download="ELEVATE90_Tracker.pdf" target="_blank" class="block w-full p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-lime-400/50 hover:bg-gray-800 transition-all group">
-                        <div class="text-xs text-gray-400 mb-1 font-semibold uppercase tracking-wider">Printable</div>
-                        <div class="font-medium text-gray-200 group-hover:text-lime-400 flex justify-between items-center">
-                            Physical Tracker
-                            <svg class="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                        </div>
+                    <a href="files/basic-tracker.pdf" target="_blank" class="block p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-lime-400/50">
+                        Physical Tracker
                     </a>
                 </div>
             </section>
+
         </div>
     </main>
 
+    <!-- SCRIPTS -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
     <script src="js/app.js"></script>
+
+    <!-- 🔒 PROTECT PAGE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkSession(true, false);
+        });
+    </script>
+
 </body>
 </html>
