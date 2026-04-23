@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'sys_basic_v3';
+    const todayKey = new Date().toISOString().slice(0, 10);
+
+    let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
+      habits: {},
+      workouts: {},
+      streak: 0,
+      lastPerfectDate: null
+    };
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function updateScore() {
+      let completed = 0;
+      if (state.habits.water) completed++;
+      if (state.habits.steps) completed++;
+      if (state.habits.workout) completed++;
+
+      const score = Math.round((completed / 3) * 100);
+      document.getElementById('daily-score').innerText = score + '%';
+      document.getElementById('streak-counter').innerText = state.streak;
+
+      const feedbackEl = document.getElementById('coach-feedback');
+      if (score === 100) {
+        feedbackEl.innerHTML = '<span class="text-brand">Perfect execution. This is how results happen.</span>';
+        if (state.lastPerfectDate !== todayKey) {
+          state.streak += 1;
+          state.lastPerfectDate = todayKey;
+        }
+      } else if (score >= 66) {
+        feedbackEl.innerText = 'Good work. Finish the day strong.';
+      } else {
+        feedbackEl.innerText = 'You\'re slipping. Fix this today.';
+      }
+
+      document.getElementById('streak-counter').innerText = state.streak;
+
+      ['water', 'steps', 'workout'].forEach(id => {
+        const btn = document.getElementById('btn-' + id);
+        if (!btn) return;
+        if (state.habits[id]) {
+          btn.classList.add('habit-active');
+          btn.querySelector('.check-circle').innerText = '✓';
+        } else {
+          btn.classList.remove('habit-active');
+          btn.querySelector('.check-circle').innerText = '';
+        }
+      });
+
+      ['day1'].forEach(id => {
+        const btn = document.getElementById('complete-' + id);
+        if (btn && state.workouts[id]) {
+          btn.classList.remove('bg-brand', 'hover:bg-brandHover', 'text-black');
+          btn.classList.add('bg-white/10', 'text-brand');
+          btn.innerText = '✓ Session Logged';
+        }
+      });
+
+      saveState();
+    }
+
+    function toggleHabit(id) {
+      state.habits[id] = !state.habits[id];
+      updateScore();
+    }
+
+    function completeWorkout(id) {
+      state.workouts[id] = true;
+      state.habits.workout = true;
+      updateScore();
+      toggleAccordion(id);
+    }
+
+    function toggleAccordion(id) {
+      const content = document.getElementById('content-' + id);
+      const icon = document.getElementById('icon-' + id);
+      if (!content || !icon) return;
+
+      if (content.style.maxHeight) {
+        content.style.maxHeight = null;
+        icon.style.transform = 'rotate(0deg)';
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    updateScore();
+  </script>
+</body>
+</html>
