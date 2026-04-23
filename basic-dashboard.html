@@ -1,16 +1,4 @@
 <!DOCTYPE html>
-    </section>
-  </main>
-
-  <script>
-    const STORAGE_KEY = 'sys_basic_v3';
-    const todayKey = new Date().toISOString().slice(0, 10);
-
-    let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {
-      habits: {},
-      workouts: {},
-      streak: 0,
-      lastPerfectDate: null
     };
 
     function saveState() {
