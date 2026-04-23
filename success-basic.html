@@ -1,50 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Welcome | ELEVATE90</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body class="bg-gray-950 text-gray-100 min-h-screen flex items-center justify-center p-4 font-sans selection:bg-lime-400 selection:text-gray-900">
 
     <div class="glass-panel max-w-lg w-full rounded-2xl p-8 md:p-12 text-center shadow-2xl">
+
+        <!-- Success Icon -->
         <div class="w-20 h-20 bg-lime-400/10 rounded-full flex items-center justify-center mx-auto mb-6 border border-lime-400/30">
             <svg class="w-10 h-10 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
         </div>
-        
-        <h1 class="text-3xl font-bold mb-4 tracking-tight">Payment Successful.</h1>
-        <p class="text-gray-400 mb-8 leading-relaxed">Welcome to ELEVATE90. Your foundational materials are ready. Download them below before proceeding to your daily execution dashboard.</p>
 
+        <!-- Title -->
+        <h1 class="text-3xl font-bold mb-4 tracking-tight">Access Granted.</h1>
+
+        <!-- Description -->
+        <p class="text-gray-400 mb-8 leading-relaxed">
+            Your ELEVATE90 system is ready. Download your core materials below, then proceed to your execution dashboard.
+        </p>
+
+        <!-- Downloads -->
         <div class="space-y-4 mb-8">
-            <a href="files/foundation-blueprint.pdf" download="ELEVATE90_Blueprint.pdf" target="_blank" class="flex items-center justify-center gap-3 w-full py-4 px-4 bg-gray-900/50 border border-gray-700 hover:border-lime-400/50 hover:bg-gray-800 rounded-xl text-sm transition-all group">
+
+            <a href="files/foundation-blueprint.pdf" download target="_blank"
+               class="flex items-center justify-center gap-3 w-full py-4 px-4 bg-gray-900/50 border border-gray-700 hover:border-lime-400/50 hover:bg-gray-800 rounded-xl text-sm transition-all group">
+                
                 <svg class="w-5 h-5 text-gray-400 group-hover:text-lime-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
-                <span class="font-medium text-gray-200 group-hover:text-white">Download Foundation Blueprint</span>
+
+                <span class="font-medium text-gray-200 group-hover:text-white">
+                    Download Foundation Blueprint
+                </span>
             </a>
-            <a href="files/basic-tracker.pdf" download="ELEVATE90_Tracker.pdf" target="_blank" class="flex items-center justify-center gap-3 w-full py-4 px-4 bg-gray-900/50 border border-gray-700 hover:border-lime-400/50 hover:bg-gray-800 rounded-xl text-sm transition-all group">
+
+            <a href="files/basic-tracker.pdf" download target="_blank"
+               class="flex items-center justify-center gap-3 w-full py-4 px-4 bg-gray-900/50 border border-gray-700 hover:border-lime-400/50 hover:bg-gray-800 rounded-xl text-sm transition-all group">
+                
                 <svg class="w-5 h-5 text-gray-400 group-hover:text-lime-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                 </svg>
-                <span class="font-medium text-gray-200 group-hover:text-white">Download Physical Tracker</span>
+
+                <span class="font-medium text-gray-200 group-hover:text-white">
+                    Download Physical Tracker
+                </span>
             </a>
+
         </div>
 
-        <a href="basic-dashboard.html" class="block w-full bg-lime-400 text-gray-950 font-bold py-4 rounded-xl hover:bg-lime-500 transition-all text-lg shadow-[0_0_15px_rgba(163,230,53,0.3)] hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]">
-            Initialize Dashboard &rarr;
-        </a>
+        <!-- CTA -->
+        <button onclick="goToDashboard()"
+            class="w-full bg-lime-400 text-gray-950 font-bold py-4 rounded-xl hover:bg-lime-500 transition-all text-lg shadow-[0_0_15px_rgba(163,230,53,0.3)] hover:shadow-[0_0_25px_rgba(163,230,53,0.5)]">
+            Open Dashboard →
+        </button>
+
     </div>
+
+    <!-- Scripts -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/auth.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Must be logged in to access this page
+            await checkSession(true, false);
+        });
+
+        function goToDashboard() {
+            window.location.href = 'basic-dashboard.html';
+        }
+    </script>
 
 </body>
 </html>
